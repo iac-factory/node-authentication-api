@@ -9,18 +9,15 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "artillery-plugin-fuzzer": "^1.0.1",
         "dotenv": "^16.0.1",
         "dotenv-expand": "^8.0.3",
         "mongodb": "^4.7.0",
-        "node-fetch": "^3.2.6",
         "tslib": "^2.4.0",
         "typescript": "^4.7.4"
     },
     "devDependencies": {
         "@swc/core": "^1.2.212",
         "@swc/helpers": "^0.4.3",
-        "artillery": "^2.0.0-20",
         "ts-node": "^10.8.2"
     }
 }
