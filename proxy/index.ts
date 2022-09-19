@@ -203,19 +203,8 @@ const Command = async () => {
 
     await client.connect();
 
-    console.time("Start-Find");
+    /*** ... */
 
-    const collection = client.db("content").collection("book");
-
-    if (!(collection)) throw new ReferenceError();
-
-    const cursor = collection.find(/*** search */);
-
-    const array = await cursor.toArray();
-
-    console.timeEnd("Start-Find");
-
-    FS.writeFileSync( "Find-Results.json", JSON.stringify( { "data": array }, null, 4 ), { encoding: "utf-8" } );
     await client.close();
 }
 
