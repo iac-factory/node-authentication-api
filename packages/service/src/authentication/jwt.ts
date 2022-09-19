@@ -9,9 +9,7 @@
 import { v4 as UUID } from "uuid";
 import Token, { SignOptions } from "jsonwebtoken";
 
-// import { User }    from "@iac-factory/api-database";
 import { Context } from "@iac-factory/api-database";
-// import { compare } from "bcryptjs";
 
 const Compare = async ( password: string, hash: string ): Promise<[ boolean, string ]> => {
     const { compare } = await import("bcryptjs");
@@ -49,18 +47,10 @@ export const JWT = async function ( server: string, ip: string, username: string
 
     const record = await users.findOne( { username: username.toLowerCase() } );
 
-    console.log( record );
-
-    // const record = await User.findOne( { username: username.toLowerCase() } );
-
     if ( !( record ) ) return null;
 
     /*** Validate the User's Password --> Hash */
-        // const [ valid, _ ] = await record.compare( password );
-
     const [ valid, _ ] = await Compare( password, record.password );
-
-    console.log( valid, _ );
 
     if ( !( valid ) ) return null;
 
@@ -98,9 +88,6 @@ export const JWT = async function ( server: string, ip: string, username: string
                 { $set: { login: session } },
                 { upsert: false }
             );
-
-            // await record.updateOne();
-            // await record.save();
 
             resolve( token );
         } );
