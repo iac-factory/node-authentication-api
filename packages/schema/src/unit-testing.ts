@@ -1,0 +1,1 @@
+export type Type = { [ $: string ]: "object" | "string" | "boolean" | "bigint" | "number" | "function" | "symbol" | "undefined" };
