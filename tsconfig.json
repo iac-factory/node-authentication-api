@@ -5,7 +5,7 @@
         "rootDir": ".",
         "lib": ["ESNext", "DOM"],
         "module": "CommonJS",
-        "target": "ESNext",
+        "target": "ES2018",
         "moduleResolution": "Node",
         "strict": true,
         "esModuleInterop": true,

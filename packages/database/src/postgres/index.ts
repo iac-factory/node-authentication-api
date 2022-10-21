@@ -1,5 +1,5 @@
 export * from "./module";
-export * from "./models";
+export * from "..";
 
 import { Logger } from "@iac-factory/api-utilities";
 
