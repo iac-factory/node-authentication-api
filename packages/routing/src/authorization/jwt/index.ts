@@ -16,8 +16,6 @@ Router.post( Endpoint.route, async ( request, response, next ) => {
     const { username } = request.body ?? { username: null };
     const { password } = request.body ?? { password: null };
 
-    console.log( username, password )
-
     const error = ( !username || !password );
 
     const server = request.protocol + "://" + request.hostname;

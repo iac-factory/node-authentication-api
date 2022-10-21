@@ -7,25 +7,32 @@
  */
 
 import { v4 as UUID } from "uuid";
+
 import Token, { SignOptions } from "jsonwebtoken";
 
 import { Context } from "@iac-factory/api-database";
 
-const Compare = async ( password: string, hash: string ): Promise<[ boolean, string ]> => {
+import { Logger } from "@iac-factory/api-utilities";
+
+const Log = new Logger("Authorization");
+
+const Compare = async (password: string, hash: string): Promise<[ boolean, string ]> => {
     const { compare } = await import("bcryptjs");
 
-    return new Promise( ( resolve, reject ) => {
-        compare( password, hash, function ( exception, success: boolean ) {
-            if ( exception ) return reject( exception );
+    Log.debug("JWT-Comparator", {password, hash});
 
-            if ( !success ) {
-                resolve( [ false, "Invalid" ] );
+    return new Promise((resolve, reject) => {
+        compare(password, hash, function (exception, success: boolean) {
+            if (exception) return reject(exception);
+
+            if (!success) {
+                resolve([ false, "Invalid" ]);
             } else {
-                resolve( [ true, "Successful" ] );
+                resolve([ true, "Successful" ]);
             }
-        } );
-    } );
-}
+        });
+    });
+};
 
 /***
  * JWT Login Generation
@@ -40,47 +47,52 @@ const Compare = async ( password: string, hash: string ): Promise<[ boolean, str
  *
  * @constructor
  */
-export const JWT = async function ( server: string, ip: string, username: string, password: string ): Promise<string | null> {
+export const JWT = async (server: string, ip: string, username: string, password: string): Promise<string | null> => {
     const context = await Context.Connection();
-    const database = context.db( "Authentication" );
-    const users = database.collection( "User" );
+    const database = context.db("Authentication");
+    const users = database.collection("User");
 
-    const record = await users.findOne( { username: username.toLowerCase() } );
+    Log.debug("JWT-Generator", {server, ip, username, password});
 
-    if ( !( record ) ) return null;
+    const record = await users.findOne({ username: username.toLowerCase() });
+
+    if (!(record)) return null;
 
     /*** Validate the User's Password --> Hash */
-    const [ valid, _ ] = await Compare( password, record.password );
+    const [ valid, _ ] = await Compare(password, record.password);
 
-    if ( !( valid ) ) return null;
+    if (!(valid)) return null;
 
     const { _id: id } = record;
     const fields: SignOptions = {
-        subject:   username.toLowerCase(),
-        issuer:    "Internal",
+        subject: username.toLowerCase(),
+        issuer: "Internal",
         expiresIn: "1d",
         algorithm: "HS256",
-        encoding:  "utf-8",
-        header:    {
+        encoding: "utf-8",
+        header: {
             alg: "HS256",
             typ: "JWT",
             cty: "Application/JWT"
         }
     };
 
-    return new Promise( ( resolve ) => {
-        Token.sign( { id, uid: UUID() }, process.env[ "SECRET" ]!, fields, async ( exception, token ) => {
-            if ( exception ) throw exception;
-            if ( !( token ) ) throw new TypeError( "Token Cannot be Undefined" );
+    return new Promise((resolve) => {
+        Token.sign({
+            id,
+            uid: UUID()
+        }, process.env["SECRET"]!, fields, async (exception, token) => {
+            if (exception) throw exception;
+            if (!(token)) throw new TypeError("Token Cannot be Undefined");
 
-            const time = new Date( Date.now() );
-            const expiration = new Date( Date.now() + 24 * ( 60 * 60 * 1000 ) );
+            const time = new Date(Date.now());
+            const expiration = new Date(Date.now() + 24 * (60 * 60 * 1000));
 
             const session = {
-                date:       time,
+                date: time,
                 expiration: expiration,
-                token:      token,
-                origin:     ip
+                token: token,
+                origin: ip
             };
 
             await users.updateOne(
@@ -89,9 +101,9 @@ export const JWT = async function ( server: string, ip: string, username: string
                 { upsert: false }
             );
 
-            resolve( token );
-        } );
-    } );
+            resolve(token);
+        });
+    });
 };
 
 export default JWT;

@@ -104,7 +104,7 @@ export module Users {
 
         const { collection } = client;
 
-        return await collection.find().skip( ( normalize <= 0 ) ? 0 * total : normalize * total ).limit( total ).toArray();
+        return collection.find().skip( ( normalize <= 0 ) ? 0 * total : normalize * total ).limit( total ).toArray();
     };
 
     export const Page = async ( total: number, page: number ) => {
@@ -127,10 +127,10 @@ export module Users {
                 current = page + 1;
                 next = ( ( this.current + 1 ) < pages ) ? this.current + 1 : null;
                 previous = ( ( this.current ) > 0 ) ? this.current - 1 : null;
-                payload = { current: pagination, next: payload, last: final };
+                payload = { current: pagination, next: payload, last: final, previous: ( ( this.current ) > 0 ) ? this.current - 1 : null };
 
                 response() {
-                    this.push( ... [ ( ( page + 1 ) < pages ) ? this.current + 1 : null, ( ( page + 2 ) < pages ) ? this.current + 2 : null, ( ( page + 3 ) < pages ) ? this.current + 3 : null, ( ( page + 4 ) < pages ) ? this.current + 4 : null, ( ( page + 5 ) < pages ) ? this.current + 5 : null ].filter( ( page ) => page ) );
+                    this.push( ... [ 1, ( ( page + 0 ) < pages ) ? this.current + 0 : null, ( ( page + 1 ) < pages ) ? this.current + 1 : null, ( ( page + 2 ) < pages ) ? this.current + 2 : null, ( ( page + 3 ) < pages ) ? this.current + 3 : null] );
                     return {
                         /*** The number of rows to set for rendering tabular data */
                         rows: this.rows,
@@ -168,5 +168,13 @@ export module Users {
 
             return collection.findOne( { id: identifier } ) as {} as User;
         }
+    }
+
+    export const All = async (): Promise<User[]> => {
+        const client = await Initialize();
+
+        const { collection } = client;
+
+        return collection.find().toArray() as {} as User[];
     }
 }

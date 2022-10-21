@@ -35,36 +35,44 @@
 
 import PostgreSQL from "pg";
 
-// import {Debugger} from "@iac-factory/api-core";
+import { Logger } from "@iac-factory/api-utilities";
+
+const Debugger = new Logger("PostgreSQL");
 
 export module PG {
-    const Connection = new PostgreSQL.Pool( {
-        password:         process.env[ "POSTGRES_PASSWORD" ],
-        user:             process.env[ "POSTGRES_USER" ],
-        database:         process.env[ "POSTGRES_DB" ],
-        application_name: process.env[ "SERVER" ],
-        keepAlive:        process.env[ "POSTGRES_CONNECTION_KEEPALIVE" ] === "true"
-    } );
+    const Connection = (() => {
+        (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Connection", "Establishing Connection ...");
 
-    export const Query = async function ( input: string, parameters?: any ) {
+        return new PostgreSQL.Pool({
+            password: process.env["POSTGRES_PASSWORD"],
+            user: process.env["POSTGRES_USER"],
+            database: process.env["POSTGRES_DB"],
+            application_name: process.env["SERVER"],
+            keepAlive: process.env["POSTGRES_CONNECTION_KEEPALIVE"] === "true"
+        });
+    })();
+
+    export async function Query (input: string, parameters?: any) {
         // const logger = Debugger.hydrate({
         //     module: ["PostgreSQL (Query)", "black"],
         //     level: ["Debug", "cyan"],
         //     depth: [1, true]
         // });
 
+        (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Cursor", "Instantiating Database Query ...");
+
         const initial = new Date().getTime();
 
-        const response = await Connection.query( input, parameters );
+        const response = await Connection.query(input, parameters);
 
-        const delta = ( new Date().getTime() - initial ) / 1000;
+        const delta = (new Date().getTime() - initial) / 1000;
 
-        // logger.debug("Query Duration" + ":" + " " + delta + " " + "Second(s)");
+        (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Cursor", "Total Query Time", { time: delta });
 
         return response;
     };
 
-    export const Interface = async function () {
+    export async function Interface () {
         // const logger = Debugger.hydrate({
         //     module: ["PostgreSQL", "black"],
         //     level: ["Debug", "cyan"],
@@ -76,46 +84,46 @@ export module PG {
         const release: typeof client.release = client.release;
 
         // Establish a timeout of 5 seconds, after which the client's last query is logged
-        const timeout = setTimeout( () => {
+        const timeout = setTimeout(() => {
             // logger.error("Client Query Timeout ( Greater than 5 Second(s) )");
             // logger.error("The last executed query was" + " " + client.lastQuery);
-        }, 5000 );
+        }, 5000);
 
         // Monkey patch the query method to keep track of the last query executed
-        client.query = ( ... args: [ queryText: string, values: any[], callback: ( err: Error, result: PostgreSQL.QueryResult<PostgreSQL.QueryResultRow> ) => void ] ) => {
+        client.query = (...args: [ queryText: string, values: any[], callback: (err: Error, result: PostgreSQL.QueryResult<PostgreSQL.QueryResultRow>) => void ]) => {
             client.lastQuery = args;
-            return query.apply( client, args );
+            return query.apply(client, args);
         };
 
         client.release = () => {
-            clearTimeout( timeout );
+            clearTimeout(timeout);
 
             // set the methods back to their old un-monkey-patched version
             client.query = query;
             client.release = release;
-            return release.apply( client );
+            return release.apply(client);
         };
 
         return client;
     };
 
-    export const Version = async function () {
+    export async function Version () {
         // const logger = Debugger.hydrate({
         //     module: ["PostgreSQL (Version)", "black"],
         //     level: ["Debug", "cyan"],
         //     depth: [1, true]
         // });
 
-        return await Query( "SELECT version();" )
-            .then( ( output ) => {
+        return await Query("SELECT version();")
+            .then((output) => {
                 // logger.debug(output.rows[0]?.version);
 
-                return output.rows[ 0 ];
-            } );
+                return output.rows[0];
+            });
     };
 
-    export const Health = async function () {
-        return !!( await Version() );
+    export async function Health () {
+        return !!(await Version());
     };
 
     /***
@@ -127,7 +135,7 @@ export module PG {
      * @see {@link https://www.postgresql.org/docs/current/datatype-enum.html}
      * @constructor
      */
-    export function Enumeration () {
+    export function Enumeration() {
 
     }
 }

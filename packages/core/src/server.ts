@@ -1,5 +1,7 @@
 import Network from "net";
 
+import HTTP from "http";
+
 import { Router } from "@iac-factory/api-routing";
 import { Middleware } from "@iac-factory/api-middleware";
 import { Application } from "@iac-factory/api-services";
@@ -10,7 +12,7 @@ import { Server } from ".";
 
 const Debugger = new Logger( "Core" );
 
-export async function Initialize() {
+export async function Initialize(): Promise<HTTP.Server> {
     await Middleware( Application );
 
     Application.use( "/", Router );
@@ -25,9 +27,10 @@ export async function Initialize() {
 
     return new Promise( ( resolve ) => {
         Instance.listen( ... HTTP, function HTTP() {
-            Debugger.debug( "Server", Address.url, {
-                ... ( Instance.address() as Network.AddressInfo )
-            } );
+            Debugger.debug( "Server", "Now Listening via http://localhost:3000");
+            // Debugger.debug( "Server", Address.url, {
+            //     ... ( Instance.address() as Network.AddressInfo )
+            // } );
 
             resolve( Application );
         } );

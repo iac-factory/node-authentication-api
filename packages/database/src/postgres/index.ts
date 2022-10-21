@@ -1,13 +1,18 @@
 export * from "./module";
+export * from "./models";
 
-void ( async () => {
-    const debug = ( process.argv.includes( "--debug" ) && process.argv.includes( "--pg" ) );
+import { Logger } from "@iac-factory/api-utilities";
 
-    const test = async () => {
-        const { PG } = await import(".");
+void (async () => {
+    const { PG } = await import(".");
 
-        await PG.Version();
-    };
+    const Debugger = new Logger("PostgreSQL");
 
-    ( debug ) && await test();
-} )();
+    const version = await PG.Version();
+
+    function Version () {
+        (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Initialization", version);
+    }
+
+    void Version();
+})();

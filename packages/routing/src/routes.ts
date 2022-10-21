@@ -7,6 +7,10 @@ export default void ( async () => {
             // Logger.debug(route.default.registry);
             Router.use( route.default );
         } ),
+        import("./queue").then( ( route ) => {
+            // Logger.debug(route.default.registry);
+            Router.use( route.default );
+        } ),
         import("./utility").then( ( route ) => {
             // Logger.debug(route.default.registry);
             Router.use( route.default );
@@ -51,6 +55,10 @@ export default void ( async () => {
             // Logger.debug(route.default.registry);
             Router.use( route.default );
         } ),
+        // import("./users/all").then( ( route ) => {
+        //     // Logger.debug(route.default.registry);
+        //     Router.use( route.default );
+        // } ),
         import("./users/pagination").then( ( route ) => {
             // Logger.debug(route.default.registry);
             Router.use( route.default );
@@ -81,5 +89,5 @@ export default void ( async () => {
         } )
     ];
 
-    return Promise.allSettled( Routing );
+    return Promise.all( Routing );
 } )();

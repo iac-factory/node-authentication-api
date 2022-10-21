@@ -93,7 +93,7 @@ export module TLS {
             }
 
             for await (const [ certificate, offset ] of certificates) {
-                void await Writer(certificate, offset);
+                void await Writer(certificate, (offset as string | Buffer));
             }
 
             Reflect.set($, "initialize", true);

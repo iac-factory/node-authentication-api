@@ -22,7 +22,7 @@ function Valid( evaluations: Array<boolean> ) {
  * @param origin
  */
 export const Validation = async function ( jwt: string, origin: string ) {
-    Log.debug( "JWT", jwt );
+    Log.debug( "JWT", { jwt, origin } );
 
     /***
      * Unverified, Decoded JWT
