@@ -6,7 +6,6 @@
 .vscode
 .eclipse
 
-
 .venv
 __pycache__
 
