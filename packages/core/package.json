@@ -1,6 +1,6 @@
 {
     "name": "@iac-factory/api-core",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "description": "...",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
@@ -11,10 +11,10 @@
         "build": "tsc --build $(dirname $(npm root)/tsconfig.json"
     },
     "dependencies": {
-        "@iac-factory/api-middleware": "*",
-        "@iac-factory/api-routing": "*",
-        "@iac-factory/api-services": "*",
-        "@iac-factory/api-utilities": "*",
-        "@iac-factory/api-tls-certificates": "*"
+        "@iac-factory/api-middleware": "^0.0.2",
+        "@iac-factory/api-routing": "^0.0.2",
+        "@iac-factory/api-services": "^0.0.2",
+        "@iac-factory/api-tls-certificates": "*",
+        "@iac-factory/api-utilities": "*"
     }
 }

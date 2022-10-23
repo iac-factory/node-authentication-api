@@ -1,6 +1,6 @@
 {
     "name": "@iac-factory/api-database",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "description": "...",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
@@ -11,12 +11,12 @@
         "build": "tsc --build $(dirname $(npm root)/tsconfig.json"
     },
     "dependencies": {
-        "@iac-factory/api-core": "*",
-        "@iac-factory/api-schema": "*",
-        "reflect-metadata": "^0.1.13",
-        "typeorm": "^0.3.10",
+        "@iac-factory/api-core": "^0.0.2",
+        "@iac-factory/api-schema": "^0.0.2",
         "mongodb": "^4.11.0",
-        "pg": "^8.7.3"
+        "pg": "^8.7.3",
+        "reflect-metadata": "^0.1.13",
+        "typeorm": "^0.3.10"
     },
     "devDependencies": {
         "@types/pg": "^8.6.5"

@@ -1,6 +1,6 @@
 {
     "name": "@iac-factory/api-routing",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "description": "...",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
@@ -11,8 +11,8 @@
         "build": "tsc --build $(dirname $(npm root)/tsconfig.json"
     },
     "dependencies": {
-        "@iac-factory/api-core": "*",
-        "@iac-factory/api-services": "*"
+        "@iac-factory/api-core": "^0.0.2",
+        "@iac-factory/api-services": "^0.0.2"
     },
     "devDependencies": {
         "@iac-factory/eslint-settings": "1.7.36"

@@ -1,6 +1,6 @@
 {
     "name": "@iac-factory/ci",
-    "version": "0.0.56",
+    "version": "0.0.57",
     "main": "index.js",
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
