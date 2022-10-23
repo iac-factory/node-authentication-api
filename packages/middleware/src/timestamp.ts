@@ -26,7 +26,7 @@ export const Timestamp = (server: Application) => {
      * @param callback
      * @constructor
      */
-    async function Timer (request: Request, response: Response, callback: NextFunction) {
+    async function Timer(request: Request, response: Response, callback: NextFunction) {
         /// Unix Timestamp (C-Time)
         response.locals["X-Time-Initial"] = new Date().getTime();
 
@@ -35,7 +35,7 @@ export const Timestamp = (server: Application) => {
 
             const delta = (new Date().getTime() - initial) / 1000;
 
-            (function Timestamp () {
+            (function Timestamp() {
                 void Debugger.debug(request.url, "HTTP Response Duration" + ":" + " " + delta + " " + "Second(s)");
             })();
         });

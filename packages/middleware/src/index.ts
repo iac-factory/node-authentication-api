@@ -11,6 +11,7 @@ export function Middleware( server: Server ) {
             import("./cors").then( ( Module ) => Module.CORS( server ) ),
             import("./compression").then((Module) => Module.Compress(server)),
             import("./content-type").then( ( Module ) => Module.Set( server ) ),
+            // import("./authorization").then( ( Module ) => Module.Authorization( server ) ),
         ]
     ) );
 
@@ -18,3 +19,5 @@ export function Middleware( server: Server ) {
 }
 
 void ( async () => await import("./crypto") )();
+
+export * from "./authorization";

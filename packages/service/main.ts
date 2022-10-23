@@ -2,6 +2,8 @@ import HTTP from "http";
 
 import API, { Router, Express } from "express";
 
+export type { Request, Response } from "express";
+
 import { OAPI, Methods, V31 } from "@iac-factory/api-authentication-schema";
 
 export const Global: { routes: (OAPI.Path & { "x-open-api-pathing-parameter"?: string, "x-open-api-method": Lowercase<keyof typeof OAPI.Request.Methods> })[] } & { [$: string]: object | symbol } = Reflect.construct(Object, []);
