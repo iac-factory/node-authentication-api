@@ -11,14 +11,14 @@
     },
     "main": "index.js",
     "scripts": {
-        "start": "cd $(git rev-parse --show-toplevel) && npm run start",
-        "build": "tsc --build $(dirname $(npm root)/tsconfig.json"
+        "build": "tsc --build $(pwd)",
+        "start": "npm run build && ts-node $(pwd)",
+        "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@iac-factory/api-authentication-middleware": "^0.0.2",
-        "@iac-factory/api-authentication-routing": "^0.0.2",
-        "@iac-factory/api-authentication-services": "^0.0.2",
-        "@iac-factory/api-authentication-tls": "*",
-        "@iac-factory/api-authentication-authentication-utilities": "*"
+        "@iac-factory/api-authentication-middleware": "file:../middleware",
+        "@iac-factory/api-authentication-routing": "file:../routing",
+        "@iac-factory/api-authentication-tls": "file:../tls",
+        "@iac-factory/api-authentication-utilities": "file:../utilities"
     }
 }

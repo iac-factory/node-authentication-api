@@ -1,4 +1,4 @@
-import type { Server } from "@iac-factory/api-services";
+import type { Server } from "@iac-factory/api-authentication-services";
 
 export function Middleware( server: Server ) {
     const Promises = Promise.allSettled( (

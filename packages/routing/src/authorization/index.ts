@@ -1,6 +1,6 @@
-import { Default, Validation } from "@iac-factory/api-services";
+import { Default, Validation } from "@iac-factory/api-authentication-services";
 
-// import { Context } from "@iac-factory/api-database";
+// import { Context } from "@iac-factory/api-authentication-database";
 import { Endpoint, Router } from "./definition";
 
 Router.post( Endpoint.route, async ( request, response ) => {

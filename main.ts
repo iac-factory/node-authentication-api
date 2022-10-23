@@ -12,7 +12,7 @@ export const Hydrate = () => {
 export const Runtime = async () => {
     Hydrate();
 
-    const { Initialize } = await import("@iac-factory/api-core");
+    const { Initialize } = await import("@iac-factory/api-authentication-core");
 
     (process.env["NODE_ENV"] !== "testing") && await Initialize();
 };

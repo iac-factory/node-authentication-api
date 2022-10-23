@@ -1,8 +1,8 @@
-import { Logger } from "@iac-factory/api-utilities";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 import Token, { Jwt } from "jsonwebtoken";
 
-import { Context } from "@iac-factory/api-database";
+import { Context } from "@iac-factory/api-authentication-database";
 
 const Log = new Logger( "Authorization" );
 

@@ -1,6 +1,6 @@
 import Router, { Endpoint } from "./definition";
 
-import { Digital } from "@iac-factory/api-schema";
+import { Digital } from "@iac-factory/api-authentication-schema";
 
 Router.get( Endpoint.route, async ( request, response ) => {
     const { ram } = Digital;

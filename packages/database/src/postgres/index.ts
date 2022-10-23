@@ -1,7 +1,7 @@
 export * from "./module";
 export * from "..";
 
-import { Logger } from "@iac-factory/api-utilities";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 void (async () => {
     const { PG } = await import(".");

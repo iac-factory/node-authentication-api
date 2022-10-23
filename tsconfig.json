@@ -1,6 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/tsconfig",
-    "display": "@iac-factory/tsc-configuration",
+    "display": "@iac-factory/api-authentication-configuration",
     "compilerOptions": {
         "rootDir": ".",
         "lib": ["ESNext", "DOM"],

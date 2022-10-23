@@ -1,4 +1,4 @@
-import { Controller } from "@iac-factory/api-services";
+import { Controller } from "@iac-factory/api-authentication-services";
 
 export const Router = Controller( "IaC.Factory.API.Utility.Document-DB" );
 

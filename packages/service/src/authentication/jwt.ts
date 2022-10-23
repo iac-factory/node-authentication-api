@@ -10,9 +10,9 @@ import { v4 as UUID } from "uuid";
 
 import Token, { SignOptions } from "jsonwebtoken";
 
-import { Context } from "@iac-factory/api-database";
+import { Context } from "@iac-factory/api-authentication-database";
 
-import { Logger } from "@iac-factory/api-utilities";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 const Log = new Logger("Authorization");
 

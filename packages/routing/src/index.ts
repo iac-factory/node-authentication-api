@@ -1,4 +1,4 @@
-import { Controller, Schema } from "@iac-factory/api-services";
+import { Controller, Schema } from "@iac-factory/api-authentication-services";
 
 export const Router = Controller( "IaC.Factory.API" );
 

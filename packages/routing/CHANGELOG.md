@@ -5,4 +5,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.0.2 (2022-10-23)
 
-**Note:** Version bump only for package @iac-factory/api-routing
+**Note:** Version bump only for package @iac-factory/api-authentication-routing

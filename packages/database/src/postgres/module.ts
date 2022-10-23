@@ -35,7 +35,7 @@
 
 import PostgreSQL from "pg";
 
-import { Logger } from "@iac-factory/api-utilities";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 const Debugger = new Logger("PostgreSQL");
 

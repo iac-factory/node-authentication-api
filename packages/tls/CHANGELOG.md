@@ -5,31 +5,31 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.4.18 (2022-10-23)
 
-**Note:** Version bump only for package @iac-factory/aws-tls-certificates
+**Note:** Version bump only for package @iac-factory/api-authentication-tls
 
 
 
 
 
-## [0.4.17](https://github.com/iac-factory/aws-node-utilities/compare/@iac-factory/aws-tls-certificates@0.4.16...@iac-factory/aws-tls-certificates@0.4.17) (2022-10-10)
+## [0.4.17](https://github.com/iac-factory/aws-node-utilities/compare/@iac-factory/api-authentication-tls@0.4.16...@iac-factory/api-authentication-tls@0.4.17) (2022-10-10)
 
-**Note:** Version bump only for package @iac-factory/aws-tls-certificates
-
-
-
-
-
-## [0.4.16](https://github.com/iac-factory/aws-node-utilities/compare/@iac-factory/aws-tls-certificates@0.4.15...@iac-factory/aws-tls-certificates@0.4.16) (2022-10-10)
-
-**Note:** Version bump only for package @iac-factory/aws-tls-certificates
+**Note:** Version bump only for package @iac-factory/api-authentication-tls
 
 
 
 
 
-## [0.4.15](https://github.com/iac-factory/aws-node-utilities/compare/@iac-factory/aws-tls-certificates@0.4.14...@iac-factory/aws-tls-certificates@0.4.15) (2022-10-10)
+## [0.4.16](https://github.com/iac-factory/aws-node-utilities/compare/@iac-factory/api-authentication-tls@0.4.15...@iac-factory/api-authentication-tls@0.4.16) (2022-10-10)
 
-**Note:** Version bump only for package @iac-factory/aws-tls-certificates
+**Note:** Version bump only for package @iac-factory/api-authentication-tls
+
+
+
+
+
+## [0.4.15](https://github.com/iac-factory/aws-node-utilities/compare/@iac-factory/api-authentication-tls@0.4.14...@iac-factory/api-authentication-tls@0.4.15) (2022-10-10)
+
+**Note:** Version bump only for package @iac-factory/api-authentication-tls
 
 
 
@@ -37,7 +37,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## 0.4.14 (2022-10-10)
 
-**Note:** Version bump only for package @iac-factory/aws-tls-certificates
+**Note:** Version bump only for package @iac-factory/api-authentication-tls
 
 
 

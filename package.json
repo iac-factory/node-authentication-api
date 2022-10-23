@@ -4,22 +4,27 @@
     "version": "0.0.0",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
     "license": "BSD-3-Clause",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:iac-factory/node-authentication-api.git",
+        "directory": "."
+    },
     "devDependencies": {
-        "@iac-factory/unit-testing": "./packages/unit-testing",
-        "@types/node": "^18.8.4",
+        "@iac-factory/unit-testing": "file:./packages/unit-testing",
+        "@types/node": "^18.11.3",
         "ts-node": "^10.9.1",
         "typescript": "^4.8.4"
     },
     "dependencies": {
-        "@iac-factory/api-authentication-core": "./packages/core",
-        "@iac-factory/api-authentication-database": "./packages/database",
-        "@iac-factory/api-authentication-middleware": "./packages/middleware",
-        "@iac-factory/api-authentication-routing": "./packages/routing",
-        "@iac-factory/api-authentication-schema": "./packages/schema",
-        "@iac-factory/api-authentication-services": "./packages/service",
-        "@iac-factory/api-authentication-ci": "./packages/ci",
-        "@iac-factory/api-authentication-tls": "./packages/tls",
-        "@iac-factory/api-authentication-utilities": "./packages/utilities",
+        "@iac-factory/api-authentication-ci": "file:./packages/ci",
+        "@iac-factory/api-authentication-core": "file:./packages/core",
+        "@iac-factory/api-authentication-database": "file:./packages/database",
+        "@iac-factory/api-authentication-middleware": "file:./packages/middleware",
+        "@iac-factory/api-authentication-routing": "file:./packages/routing",
+        "@iac-factory/api-authentication-schema": "file:./packages/schema",
+        "@iac-factory/api-authentication-services": "file:./packages/service",
+        "@iac-factory/api-authentication-tls": "file:./packages/tls",
+        "@iac-factory/api-authentication-utilities": "file:./packages/utilities",
         "dotenv": "^16.0.3",
         "dotenv-expand": "^9.0.0"
     },
@@ -28,9 +33,9 @@
         "production": "npm run installation && node .",
         "build": "tsc --build $(dirname $(npm root))",
         "test": "npm run build && node --experimental-vm-modules $(command -v jest) --config jest.config.js --detectOpenHandles",
+        "update": "npm run test -- --update-snapshot",
         "start": "npm run build && ts-node $(dirname $(npm root))",
         "commit": "git add --all && commit",
         "release": "npm run commit || true && ci"
-    },
-    "workspaces": ["packages/**"]
+    }
 }

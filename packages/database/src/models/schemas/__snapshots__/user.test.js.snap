@@ -12,6 +12,7 @@ exports[`User Snapshot Structure State User Generator 1`] = `
     "username": "string",
     "password": "string",
     "role": "number",
+    "verification": "boolean",
     "creation": "object",
     "modification": "object",
     "consent": "boolean",

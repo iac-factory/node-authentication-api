@@ -4,7 +4,7 @@ import FS from "fs";
 import Path from "path";
 import Subprocess from "child_process";
 
-import { Prompts } from "@iac-factory/api-utilities";
+import { Prompts } from "@iac-factory/api-authentication-utilities";
 
 const Packages = async () => {
     const directory = process.cwd();

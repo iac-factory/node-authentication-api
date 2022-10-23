@@ -5,10 +5,12 @@ export async function Package() {
     const Routing = await import("./routing");
     const Schema = await import("./schema");
     const Service = await import("./service");
-    const TLS = await import("./tls-certificates");
+    const TLS = await import("./tls");
     const Utilities = await import("./utilities");
 
     return {
         Core, Database, Middleware, Routing, Schema, Service, TLS, Utilities
     };
 }
+
+export default Package;

@@ -1,4 +1,4 @@
-import { Controller, Default } from "@iac-factory/api-services";
+import { Controller, Default } from "@iac-factory/api-authentication-services";
 import { Endpoint } from "./definition";
 
 const Information = Default.Response();

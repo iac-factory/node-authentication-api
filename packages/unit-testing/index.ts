@@ -1,6 +1,6 @@
 import Path from "path";
 
-import { Logger } from "@iac-factory/api-utilities";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 const Console = new Logger( "State" );
 

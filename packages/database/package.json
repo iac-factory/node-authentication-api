@@ -11,18 +11,21 @@
     },
     "main": "index.js",
     "scripts": {
-        "start": "cd $(git rev-parse --show-toplevel) && npm run start",
-        "build": "tsc --build $(dirname $(npm root)/tsconfig.json"
+        "build": "tsc --build $(pwd)",
+        "start": "npm run build && ts-node $(pwd)",
+        "prepublishOnly": "npm run build"
+    },
+    "overrides": {
+        "mongodb": "^4.11.0"
     },
     "dependencies": {
-        "@iac-factory/api-authentication-core": "^0.0.2",
-        "@iac-factory/api-authentication-schema": "^0.0.2",
         "mongodb": "^4.11.0",
         "pg": "^8.7.3",
         "reflect-metadata": "^0.1.13",
         "typeorm": "^0.3.10"
     },
     "devDependencies": {
+        "@types/node": "^18.11.3",
         "@types/pg": "^8.6.5"
     }
 }

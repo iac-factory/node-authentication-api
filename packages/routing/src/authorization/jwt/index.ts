@@ -1,4 +1,4 @@
-import { Default, JWT } from "@iac-factory/api-services";
+import { Default, JWT } from "@iac-factory/api-authentication-services";
 
 import { Endpoint, Router } from "./definition";
 

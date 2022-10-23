@@ -1,8 +1,8 @@
 import Router, { X, Endpoint } from "./definition";
-import { Default } from "@iac-factory/api-services";
+import { Default } from "@iac-factory/api-authentication-services";
 
 Router.post( Endpoint.route, async ( request, response ) => {
-    const { Users } = await import("@iac-factory/api-services");
+    const { Users } = await import("@iac-factory/api-authentication-services");
 
     const payload: { total: number, page: number } = request.body;
 

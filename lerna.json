@@ -4,7 +4,7 @@
     ],
     "useNx": false,
     "version": "independent",
-    "useWorkspaces": true,
+    "useWorkspaces": false,
     "workspaces": [
         "packages/**"
     ]

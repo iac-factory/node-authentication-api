@@ -1,6 +1,6 @@
 import Subprocess from "child_process";
 
-import { TLS } from "@iac-factory/aws-tls-certificates";
+import { TLS } from "@iac-factory/api-authentication-tls";
 
 import { Prompts, Environment } from ".";
 

@@ -1,9 +1,9 @@
 import HTTP from "http";
 
-import { Router } from "@iac-factory/api-routing";
-import { Middleware } from "@iac-factory/api-middleware";
-import { Application } from "@iac-factory/api-services";
-import { Logger } from "@iac-factory/api-utilities";
+import { Router } from "@iac-factory/api-authentication-routing";
+import { Middleware } from "@iac-factory/api-authentication-middleware";
+import { Application } from "@iac-factory/api-authentication-services";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 import { Server } from ".";
 

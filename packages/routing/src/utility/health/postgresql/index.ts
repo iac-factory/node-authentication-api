@@ -1,7 +1,7 @@
 import Router, { Endpoint } from "./definition";
 
 Router.get( Endpoint.route, async ( request, response ) => {
-    const { PG } = await import("@iac-factory/api-database");
+    const { PG } = await import("@iac-factory/api-authentication-database");
 
     const health: Response = ( await PG.Health() )
         ? "Online" : "Offline";

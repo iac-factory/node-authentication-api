@@ -16,12 +16,9 @@
     "scripts": {
         "build": "tsc --build $(pwd)",
         "start": "npm run build && ts-node $(pwd)",
-        "clear": "npm run build && ts-node $(pwd) -- --clear",
-        "execute": "npm run build && npm install --global $(pwd) && $(basename $(pwd))",
-        "prepublish": "npm run build"
+        "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@iac-factory/api-authentication-utilities": "^0.0.2"
-    },
-    "gitHead": "22670b6108216502df9873de2847f41b41cdcbd5"
+        "@iac-factory/api-authentication-utilities": "file:../utilities"
+    }
 }

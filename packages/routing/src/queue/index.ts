@@ -1,5 +1,5 @@
 import Router, { X, Endpoint, Schema } from "./definition";
-import { Default } from "@iac-factory/api-services";
+import { Default } from "@iac-factory/api-authentication-services";
 
 Router.get(Endpoint.route, async (request, response) => {
     response.status(X["X-Default-Response"]);

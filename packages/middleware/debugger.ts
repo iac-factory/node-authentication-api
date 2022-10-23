@@ -1,4 +1,4 @@
-import { Logger } from "@iac-factory/api-utilities";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 export const Debugger = new Logger("Middleware");
 

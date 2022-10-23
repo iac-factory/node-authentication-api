@@ -3,9 +3,9 @@ import FS from "fs";
 import crypto from "crypto";
 import { faker } from "@faker-js/faker";
 import Path from "path";
-import { Context } from "@iac-factory/api-database";
+import { Context } from "@iac-factory/api-authentication-database";
 
-import { TLS } from "@iac-factory/api-schema";
+import { TLS } from "@iac-factory/api-authentication-schema";
 
 const Blob = FS.readFileSync( Path.join( __dirname, "./tls-ca-certificates.json" ), { encoding: "utf-8" } );
 const Certificates: TLS.CA = { ... JSON.parse( Blob ) };

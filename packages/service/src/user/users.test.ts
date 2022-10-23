@@ -4,7 +4,7 @@
 
 import Hydrate, { Timers } from "@iac-factory/unit-testing";
 
-import { Logger } from "@iac-factory/api-utilities";
+import { Logger } from "@iac-factory/api-authentication-utilities";
 
 import { Users } from "./users";
 

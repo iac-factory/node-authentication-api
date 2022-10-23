@@ -1,6 +1,6 @@
 import Router, { X, Endpoint } from "./definition";
 
-import { Default } from "@iac-factory/api-services";
+import { Default } from "@iac-factory/api-authentication-services";
 
 const Information = Default.Response();
 

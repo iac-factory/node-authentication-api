@@ -1,7 +1,7 @@
 import HTTP from "http";
 
-import { Logger } from "@iac-factory/api-utilities";
-import { Application } from "@iac-factory/api-services";
+import { Logger } from "@iac-factory/api-authentication-utilities";
+import { Application } from "@iac-factory/api-authentication-services";
 
 export module Socket {
     const Debugger = new Logger( "Core" );
