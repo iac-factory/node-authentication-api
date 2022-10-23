@@ -27,5 +27,6 @@
     "devDependencies": {
         "@types/node": "^18.11.3",
         "@types/pg": "^8.6.5"
-    }
+    },
+    "gitHead": "78a7fb437c10b08df15c0aee91c0d551f925ef89"
 }

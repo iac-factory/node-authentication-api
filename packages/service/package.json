@@ -16,8 +16,8 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@iac-factory/api-authentication-schema": "file:../schema",
-        "@iac-factory/api-authentication-utilities": "file:../utilities",
+        "@iac-factory/api-authentication-schema": "^0.2.3",
+        "@iac-factory/api-authentication-utilities": "^0.9.18",
         "bcrypt": "^5.0.1",
         "bcryptjs": "^2.4.3",
         "express": "^5.0.0-beta.1",
@@ -33,5 +33,6 @@
         "@types/jsonwebtoken": "^8.5.9",
         "@types/node": "^18.11.3",
         "@types/uuid": "^8.3.4"
-    }
+    },
+    "gitHead": "78a7fb437c10b08df15c0aee91c0d551f925ef89"
 }

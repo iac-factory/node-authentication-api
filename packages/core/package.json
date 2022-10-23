@@ -16,9 +16,10 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@iac-factory/api-authentication-middleware": "file:../middleware",
-        "@iac-factory/api-authentication-routing": "file:../routing",
-        "@iac-factory/api-authentication-tls": "file:../tls",
-        "@iac-factory/api-authentication-utilities": "file:../utilities"
-    }
+        "@iac-factory/api-authentication-middleware": "^0.6.12",
+        "@iac-factory/api-authentication-routing": "^0.7.21",
+        "@iac-factory/api-authentication-tls": "^0.4.19",
+        "@iac-factory/api-authentication-utilities": "^0.9.18"
+    },
+    "gitHead": "78a7fb437c10b08df15c0aee91c0d551f925ef89"
 }

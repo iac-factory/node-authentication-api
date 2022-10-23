@@ -27,5 +27,6 @@
         "settings": {
             "extends": "@iac-factory/eslint-settings"
         }
-    }
+    },
+    "gitHead": "78a7fb437c10b08df15c0aee91c0d551f925ef89"
 }

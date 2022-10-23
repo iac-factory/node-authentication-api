@@ -1,14 +1,14 @@
 {
-    "name": "@iac-factory/unit-testing",
-    "version": "0.0.2",
-    "private": true,
+    "name": "@iac-factory/api-authentication-unit-testing",
+    "version": "0.4.67",
     "description": "...",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
     "license": "BSD-3-Clause",
     "main": "index.js",
     "scripts": {
-        "pretest": "cd $(dirname $(npm root)) && tsc && export NODE_ENV=testing",
-        "test": "node --experimental-vm-modules $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles"
+        "build": "tsc --build $(pwd)",
+        "start": "npm run build && ts-node $(pwd)",
+        "prepublishOnly": "npm run build"
     },
     "dependencies": {
         "@iac-factory/api-authentication-utilities": "file:../utilities"
