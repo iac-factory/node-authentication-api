@@ -1,6 +1,6 @@
 {
     "name": "@iac-factory/api-authentication-tls",
-    "version": "0.4.20",
+    "version": "0.4.21",
     "description": "...",
     "main": "index.js",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
@@ -19,7 +19,7 @@
         "prepublishOnly": "npm run build"
     },
     "dependencies": {
-        "@iac-factory/api-authentication-utilities": "^0.9.19"
+        "@iac-factory/api-authentication-utilities": "^0.9.20"
     },
     "gitHead": "78a7fb437c10b08df15c0aee91c0d551f925ef89"
 }
