@@ -1,5 +1,6 @@
 {
     "name": "@iac-factory/node-authentication-api",
+    "private": true,
     "version": "0.0.0",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
     "license": "BSD-3-Clause",
@@ -10,14 +11,14 @@
         "typescript": "^4.8.4"
     },
     "dependencies": {
-        "@iac-factory/api-core": "./packages/core",
-        "@iac-factory/api-database": "./packages/database",
-        "@iac-factory/api-middleware": "./packages/middleware",
-        "@iac-factory/api-routing": "./packages/routing",
-        "@iac-factory/api-schema": "./packages/schema",
-        "@iac-factory/api-services": "./packages/service",
-        "@iac-factory/ci": "./packages/ci",
-        "@iac-factory/aws-tls-certificates": "./packages/tls-certificates",
+        "@iac-factory/api-authentication-core": "./packages/core",
+        "@iac-factory/api-authentication-database": "./packages/database",
+        "@iac-factory/api-authentication-middleware": "./packages/middleware",
+        "@iac-factory/api-authentication-routing": "./packages/routing",
+        "@iac-factory/api-authentication-schema": "./packages/schema",
+        "@iac-factory/api-authentication-services": "./packages/service",
+        "@iac-factory/api-authentication-ci": "./packages/ci",
+        "@iac-factory/api-authentication-tls": "./packages/tls",
         "@iac-factory/api-authentication-utilities": "./packages/utilities",
         "dotenv": "^16.0.3",
         "dotenv-expand": "^9.0.0"

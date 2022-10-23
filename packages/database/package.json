@@ -1,18 +1,22 @@
 {
-    "name": "@iac-factory/api-database",
+    "name": "@iac-factory/api-authentication-database",
     "version": "0.0.2",
-    "private": true,
     "description": "...",
     "author": "Jacob B. Sanders <jacob.sanders@cloudhybrid.io> (https://github.com/iac-factory)",
     "license": "BSD-3-Clause",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:iac-factory/node-authentication-api.git",
+        "directory": "packages/database"
+    },
     "main": "index.js",
     "scripts": {
         "start": "cd $(git rev-parse --show-toplevel) && npm run start",
         "build": "tsc --build $(dirname $(npm root)/tsconfig.json"
     },
     "dependencies": {
-        "@iac-factory/api-core": "^0.0.2",
-        "@iac-factory/api-schema": "^0.0.2",
+        "@iac-factory/api-authentication-core": "^0.0.2",
+        "@iac-factory/api-authentication-schema": "^0.0.2",
         "mongodb": "^4.11.0",
         "pg": "^8.7.3",
         "reflect-metadata": "^0.1.13",
