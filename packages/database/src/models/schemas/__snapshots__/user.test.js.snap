@@ -13,6 +13,8 @@ exports[`User Snapshot Structure State User Generator 1`] = `
     "password": "string",
     "role": "number",
     "creation": "object",
-    "modification": "object"
+    "modification": "object",
+    "consent": "boolean",
+    "age": "string"
 }"
 `;

@@ -5,11 +5,13 @@
 import Hydrate, { Timers, Logger, Initialize } from "@iac-factory/unit-testing";
 
 describe( "TLS Snapshot(s) & State", () => {
-    Initialize();
+    Hydrate() && Initialize();
 
     it( "Certificates", async function State () {
         /*** Module */
         const { TLS } = await import (".");
+
+        void await TLS.Setup();
 
         /*** Resolver Object that Reads from Local File System */
         const { Certificates } = TLS;
@@ -32,7 +34,7 @@ describe( "TLS Snapshot(s) & State", () => {
 } );
 
 describe( "TLS Module Function(s)", () => {
-    Initialize();
+    Hydrate() && Initialize();
 
     it( "Setup", async function Setup () {
         /*** Module */
@@ -58,7 +60,7 @@ describe( "TLS Module Function(s)", () => {
 } );
 
 describe("TLS Data-Structures", function () {
-    Hydrate() && Timers.Long();
+    Hydrate() && Initialize() && Timers.Long();
 
     const logger = new Logger("TLS");
 

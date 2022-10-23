@@ -2,7 +2,7 @@ import OS from "os";
 import FS from "fs";
 import Path from "path";
 
-import { TLS } from "@iac-factory/api-tls-certificates";
+import { TLS } from "@iac-factory/aws-tls-certificates";
 
 import { Logger } from "@iac-factory/api-utilities";
 import { MongoClient } from "mongodb";

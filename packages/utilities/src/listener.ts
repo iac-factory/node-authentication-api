@@ -166,20 +166,3 @@ export const Filters = {
         return input;
     }
 } as const;
-
-/*** Module Testing */
-void ( async () => {
-    const debug = ( process.argv.includes( "--debug" ) && process.argv.includes( "--spawn" ) );
-
-    const test = async () => {
-        const { Spawn } = await import(".");
-
-        const output = Spawn( { application: "ls" } );
-
-        const data = { output };
-
-        console.log( data );
-    };
-
-    ( debug ) && await test();
-} )();

@@ -114,7 +114,7 @@ describe( "Users Collection Document Paginator", function () {
             do {
                 const array = users;
 
-                Debugger.debug( "User Pagination Result(s)", container.page, array );
+                Debugger.debug( "Pagination", container.page, array );
                 container.page++;
                 users = await Users.Pagination( container.limit, container.page );
 

@@ -4,8 +4,6 @@ import API, { Router, Express } from "express";
 
 import { OAPI, Methods, V31 } from "@iac-factory/api-schema";
 
-import { Address } from "@iac-factory/api-utilities";
-
 export const Global: { routes: (OAPI.Path & { "x-open-api-pathing-parameter"?: string, "x-open-api-method": Lowercase<keyof typeof OAPI.Request.Methods> })[] } & { [$: string]: object | symbol } = Reflect.construct(Object, []);
 
 Global.routes = [];
@@ -21,7 +19,7 @@ export const Schema: OAPI.Document = {
     },
     servers: [
         {
-            "url": Address.uri
+            "url": "http" + ":" + "//" + process.env["SERVER_HOSTNAME"] + ":" + process.env["SERVER_PORT"]
         }
     ],
     paths: {},

@@ -1,0 +1,26 @@
+{
+    "name": "@iac-factory/ci",
+    "version": "0.0.56",
+    "main": "index.js",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "scripts": {
+        "build": "tsc --build $(pwd)",
+        "start": "npm run build && ts-node $(pwd)",
+        "execute": "npm run build && npm install --global $(pwd) && $(basename $(pwd))",
+        "prepublish": "npm run build",
+        "preinstall": "npm run build"
+    },
+    "dependencies": {
+        "@iac-factory/api-utilities": "*"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^17.1.2",
+        "@commitlint/prompt-cli": "^17.1.2"
+    },
+    "bin": {
+        "ci": "index.js"
+    },
+    "gitHead": "22670b6108216502df9873de2847f41b41cdcbd5"
+}

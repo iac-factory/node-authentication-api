@@ -1,14 +1,9 @@
+import OS from "os";
 import FS from "fs";
 import Path from "path";
 
-import Module from "./certificates.json";
-
-import { Logger } from "@iac-factory/api-utilities";
-
 export module TLS {
     const $ = { initialize: false };
-
-    const Debugger = new Logger("TLS");
 
     export const Certificates = {
         "global-bundle": {
@@ -16,7 +11,7 @@ export module TLS {
                 return FS.readFileSync(this.path, "utf-8");
             },
             get path() {
-                return Path.join(__dirname, this.filename);
+                return Path.join(process.cwd(), this.filename);
             },
             get filename() {
                 return "global-bundle.pem";
@@ -27,7 +22,7 @@ export module TLS {
                 return FS.readFileSync(this.path, "utf-8");
             },
             get path() {
-                return Path.join(__dirname, this.filename);
+                return Path.join(process.cwd(), this.filename);
             },
             get filename() {
                 return "rds-ca-2019.us-east-2.pem";
@@ -38,7 +33,7 @@ export module TLS {
                 return FS.readFileSync(this.path, "utf-8");
             },
             get path() {
-                return Path.join(__dirname, this.filename);
+                return Path.join(process.cwd(), this.filename);
             },
             get filename() {
                 return "rds-combined-ca-bundle.pem";
@@ -49,7 +44,7 @@ export module TLS {
                 return FS.readFileSync(this.path, "utf-8");
             },
             get path() {
-                return Path.join(__dirname, this.filename);
+                return Path.join(process.cwd(), this.filename);
             },
             get filename() {
                 return "us-east-2-bundle.pem";
@@ -75,25 +70,23 @@ export module TLS {
     }
 
     export async function Setup() {
-        (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Certificate", "Writing PEM File(s)");
-
         return !($.initialize) ? new Promise <boolean> (async (resolve, reject) => {
-            const certificates = Object.entries(Module);
+            const module = await FS.promises.readFile(Path.join(__dirname, "certificates.json"), {encoding: "utf-8"});
 
-            async function Writer (certificate: string, offset: Buffer | string) {
+            const certificates = Object.entries(JSON.parse(module));
+
+            async function Writer (certificate: string, offset: Buffer | string | unknown) {
                 const filename = [ certificate, "pem" ].join(".");
-                const target = Path.join(__dirname, filename);
-                const buffer = Buffer.from((offset as string), "base64");
+                const target = Path.join(process.cwd(), filename);
+                const buffer = Buffer.from(( offset as string ), "base64");
 
                 const content = buffer.toString("ascii");
 
                 void await FS.promises.writeFile(target, content, "utf-8");
-
-                (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Certificate", "Successfully Wrote to" + " " + Path.basename(target));
             }
 
             for await (const [ certificate, offset ] of certificates) {
-                void await Writer(certificate, (offset as string | Buffer));
+                void await Writer(certificate, offset);
             }
 
             Reflect.set($, "initialize", true);
@@ -103,18 +96,16 @@ export module TLS {
     }
 
     export async function Clean() {
-        (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Certificate", "Removing PEM File(s)");
-
         return new Promise <boolean> (async (resolve, reject) => {
-            const certificates = Object.entries(Module);
+            const module = await FS.promises.readFile(Path.join(__dirname, "certificates.json"), {encoding: "utf-8"});
+
+            const certificates = Object.entries(JSON.parse(module));
 
             async function Remover (certificate: string) {
                 const filename = [ certificate, "pem" ].join(".");
                 const target = Path.join(__dirname, filename);
 
                 void await FS.promises.rm(target, { force: true, recursive: false });
-
-                (process.env?.["NODE_ENV"] !== "testing") && Debugger.debug("Certificate", "Successfully Removed" + " " + Path.basename(target));
             }
 
             for await(const [ certificate, _ ] of certificates) {
@@ -125,6 +116,27 @@ export module TLS {
         });
     }
 
+    export async function Home() {
+        await Setup();
+
+        const directory = await FS.promises.realpath(OS.homedir());
+
+        try {
+            await FS.promises.mkdir(Path.join(directory, ".tls"));
+        } catch ( exception ) {
+            /*** Continue */
+        }
+
+        for (const file of Object.keys(Certificate)) {
+            const filename = file + "." + "pem";
+
+            const source = Path.join(process.cwd(), filename);
+            const target = Path.join(directory, ".tls", filename);
+
+            await FS.promises.copyFile(source, target);
+        }
+    }
+
     export enum Certificate {
         "global-bundle" = "global-bundle",
         "rds-ca-2019.us-east-2" = "rds-ca-2019.us-east-2",
@@ -133,6 +145,4 @@ export module TLS {
     }
 
     export type File = keyof typeof Certificate;
-
-    (async () => TLS.Setup())();
 }

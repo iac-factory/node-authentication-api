@@ -1,0 +1,20 @@
+{
+    "name": "@iac-factory/aws-tls-certificates",
+    "version": "0.4.17",
+    "description": "...",
+    "main": "index.js",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "scripts": {
+        "build": "tsc --build $(pwd)",
+        "start": "npm run build && ts-node $(pwd)",
+        "clear": "npm run build && ts-node $(pwd) -- --clear",
+        "execute": "npm run build && npm install --global $(pwd) && $(basename $(pwd))",
+        "prepublish": "npm run build"
+    },
+    "dependencies": {
+        "@iac-factory/api-authentication-utilities": "*"
+    },
+    "gitHead": "22670b6108216502df9873de2847f41b41cdcbd5"
+}

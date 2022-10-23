@@ -1,5 +1,5 @@
 {
-    "name": "@iac-factory/api-utilities",
+    "name": "@iac-factory/api-authentication-utilities",
     "version": "0.0.1",
     "private": true,
     "description": "...",
@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@iac-factory/api-core": "*",
+        "@iac-factory/aws-tls-certificates": "*",
         "ansi-colors": "^4.1.3"
     }
 }

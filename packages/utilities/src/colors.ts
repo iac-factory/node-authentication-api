@@ -12,6 +12,21 @@ export module Color {
     export const { gray } = ANSI;
     export const { grey } = ANSI;
 
+    export const { reset } = ANSI;
+    export const { bold } = ANSI;
+    export const { dim } = ANSI;
+    export const { italic } = ANSI;
+    export const { underline } = ANSI;
+    export const { inverse } = ANSI;
+    export const { hidden } = ANSI;
+    export const { strikethrough } = ANSI;
+
+    export const { stripColor: strip } = ANSI;
+    export const { create } = ANSI;
+    export const { unstyle } = ANSI;
+    export const { enabled } = ANSI;
+    export const { visible } = ANSI;
+
     export module bright {
         export const { blackBright: black } = ANSI;
         export const { redBright: red } = ANSI;
@@ -39,23 +54,5 @@ export module Color {
     export type Colors = keyof typeof colors;
 }
 
-export module Modifiers {
-    export const { reset } = ANSI;
-    export const { bold } = ANSI;
-    export const { dim } = ANSI;
-    export const { italic } = ANSI;
-    export const { underline } = ANSI;
-    export const { inverse } = ANSI;
-    export const { hidden } = ANSI;
-    export const { strikethrough } = ANSI;
-}
-
-export module Interface {
-    export const { stripColor: strip } = ANSI;
-    export const { create } = ANSI;
-    export const { unstyle } = ANSI;
-    export const { enabled } = ANSI;
-    export const { visible } = ANSI;
-}
-
+export default Color;
 

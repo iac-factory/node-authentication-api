@@ -16,8 +16,9 @@
         "@iac-factory/api-routing": "./packages/routing",
         "@iac-factory/api-schema": "./packages/schema",
         "@iac-factory/api-services": "./packages/service",
-        "@iac-factory/api-tls-certificates": "./packages/tls",
-        "@iac-factory/api-utilities": "./packages/utilities",
+        "@iac-factory/ci": "./packages/ci",
+        "@iac-factory/aws-tls-certificates": "./packages/tls-certificates",
+        "@iac-factory/api-authentication-utilities": "./packages/utilities",
         "dotenv": "^16.0.3",
         "dotenv-expand": "^9.0.0"
     },
@@ -26,6 +27,9 @@
         "production": "npm run installation && node .",
         "build": "tsc --build $(dirname $(npm root))",
         "test": "npm run build && node --experimental-vm-modules $(command -v jest) --config jest.config.js --detectOpenHandles",
-        "start": "npm run build && ts-node $(dirname $(npm root))"
-    }
+        "start": "npm run build && ts-node $(dirname $(npm root))",
+        "commit": "git add --all && commit",
+        "release": "npm run commit || true && ci"
+    },
+    "workspaces": ["packages/**"]
 }

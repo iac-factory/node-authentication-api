@@ -1,11 +1,8 @@
-import Network from "net";
-
 import HTTP from "http";
 
 import { Router } from "@iac-factory/api-routing";
 import { Middleware } from "@iac-factory/api-middleware";
 import { Application } from "@iac-factory/api-services";
-import { Address } from "@iac-factory/api-utilities";
 import { Logger } from "@iac-factory/api-utilities";
 
 import { Server } from ".";
@@ -18,8 +15,8 @@ export async function Initialize(): Promise<HTTP.Server> {
     Application.use( "/", Router );
     /*** Inline Type `settings` for HTTP-Listen Event Listener */
     const HTTP: [ number, string, number ] = [
-        Address.port,
-        Address.hostname,
+        parseInt(process.env["SERVER_PORT"] ?? "3000"),
+        process.env["SERVER_HOSTNAME"] ?? "0.0.0.0",
         parseInt( process.env[ "SERVER_BACKLOG" ] ?? "512" )
     ];
 
