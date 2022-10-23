@@ -25,7 +25,7 @@
         "installation": "npm install --install-links --omit dev --omit optional --omit peer .",
         "production": "npm run installation && node .",
         "build": "tsc --build $(dirname $(npm root))",
-        "test": "npm run build && node --experimental-vm-modules $(command -v jest) --config jest.config.js --injectGlobals --detectOpenHandles",
+        "test": "npm run build && node --experimental-vm-modules $(command -v jest) --config jest.config.js --detectOpenHandles",
         "start": "npm run build && ts-node $(dirname $(npm root))"
     }
 }

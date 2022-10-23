@@ -12,6 +12,7 @@
         "skipLibCheck": true,
         "assumeChangesOnlyAffectDirectDependencies": true,
         "forceConsistentCasingInFileNames": true,
+        "preserveConstEnums": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitReturns": true,
         "noUncheckedIndexedAccess": true,

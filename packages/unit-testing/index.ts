@@ -48,7 +48,7 @@ export const closure = (): any | void => afterEach( () => {
 export const initialize = () => {
     jest.setTimeout( 10 * 1000 );
 
-    void closure();
+    // void closure();
 
     /*** Required for conditional call(s) */
     return true;

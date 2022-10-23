@@ -3,6 +3,16 @@ import crypto from "crypto";
 import { faker } from "@faker-js/faker";
 
 export module User {
+    export enum AGE {
+        "Age-0" = "18 - 22",
+        "Age-1" = "22 - 27",
+        "Age-2" = "28 - 34",
+        "Age-3" = "35 - 40",
+        "Age-4" = "41 - 49",
+        "Age-5" = "50 - 60",
+        "Age-6" = "61 - 100"
+    }
+
     export enum ENUMERATION {
         id = "id",
         firstname = "firstname",
@@ -16,7 +26,8 @@ export module User {
         role = "role",
         creation = "creation",
         modification = "modification",
-        verification = "verification"
+        verification = "verification",
+        consent = "consent"
     }
 
     export interface Schema {
@@ -32,7 +43,9 @@ export module User {
         role: number,
         creation: Date,
         modification: Date,
-        verification: boolean
+        verification: boolean,
+        consent: boolean,
+        age: AGE | string
     }
 
     export type Keys = keyof typeof ENUMERATION;
@@ -62,9 +75,6 @@ export module User {
         const first = faker.name.firstName();
         const last = faker.name.lastName();
 
-        const ip = faker.internet.ip();
-        const version = ((ip.split(".").length) === 4) ? "ipv4" : "ipv6"
-
         const structure = {
             id: crypto.randomUUID(),
             email: faker.internet.email(first, last),
@@ -82,6 +92,8 @@ export module User {
             verification: faker.datatype.boolean(),
             creation: new Date(Date.now()),
             modification: new Date(Date.now()),
+            consent: true,
+            age: AGE["Age-0"]
         };
 
         return Validator(structure) && structure || null;

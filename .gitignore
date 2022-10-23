@@ -90,3 +90,5 @@ repositories-data.non-recursive.json
 
 Users.*.json
 **/Users.*.json
+
+.cache

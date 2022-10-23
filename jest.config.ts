@@ -8,7 +8,7 @@ export default {
     bail: 0,
 
     // The directory where Jest should store its cached dependency information
-    // cacheDirectory: null,
+    cacheDirectory: ".cache",
 
     // Automatically clear mock calls and instances between every test
     clearMocks: true,
@@ -52,7 +52,7 @@ export default {
     forceCoverageMatch: [],
 
     // A path to a module which exports an async function that is triggered once before all test suites
-    globalSetup: undefined,
+    globalSetup: "<rootDir>/../setup.js",
 
     // A path to a module which exports an async function that is triggered once after all test suites
     globalTeardown: undefined,
@@ -65,7 +65,7 @@ export default {
     // },
 
     // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-    maxWorkers: OS.cpus().length,
+    maxWorkers: /* OS.cpus().length, */ 1,
 
     // An array of directory names to be searched recursively up from the requiring module's location
     moduleDirectories: [
@@ -109,7 +109,7 @@ export default {
     reporters: undefined,
 
     // Automatically reset mock state between every test
-    resetMocks: false,
+    resetMocks: true,
 
     // Reset the module registry before running each individual test
     resetModules: true,

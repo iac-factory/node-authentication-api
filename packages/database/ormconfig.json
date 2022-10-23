@@ -8,12 +8,12 @@
    "synchronize": true, 
    "logging": true,
    "entities": [ 
-      "**/postgres/entity/**/*.ts"
+      "**/postgres/entity/**/*.{js,ts}"
    ], 
    "migrations": [ 
-      "**/postgres/migration/**/*.ts"
+      "**/postgres/migration/**/*.{js,ts}"
    ], 
    "subscribers": [ 
-      "**/postgres/subscriber/**/*.ts"
+      "**/postgres/subscriber/**/*.{js,ts}"
    ] 
 }
