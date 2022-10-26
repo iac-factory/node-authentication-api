@@ -21,7 +21,14 @@ export const Connection = {
 
         const promises = entities.map((entity) => async () => {
             const repository = Postgres.getRepository(entity.name);
-            void repository.clear();
+            try {
+                await repository.clear();
+            } catch (exception) {
+                try {
+                    await repository.delete({});
+                } catch (exception) {}
+            }
+
             return true;
         });
 

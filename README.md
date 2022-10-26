@@ -1,5 +1,11 @@
 # `api` #
 
+## Notable Tests ##
+
+```bash
+npm run test -- entities.test
+```
+
 ## Example Unit Testing with `supertest` ##
 
 ```js

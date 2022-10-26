@@ -13,6 +13,57 @@ export default Router.update( {
         summary:     "API Endpoints",
         description: "REST Responses",
         post:        {
+            requestBody: {
+                content: {
+                    "Application/JSON": {
+                        schema: {
+                            type: "object",
+                            properties: {
+                                total: {
+                                    type: "integer",
+                                    required: true
+                                },
+                                page: {
+                                    type: "integer",
+                                    required: true
+                                },
+                                sort: {
+                                    required: false,
+                                    type: "object",
+                                    properties: {
+                                        order: {
+                                            type: "string",
+                                            oneOf: [
+                                                "ascending",
+                                                "descending"
+                                            ],
+                                            required: true
+                                        },
+                                        field: {
+                                            type: "string",
+                                            required: true
+                                        }
+                                    }
+                                }
+                            },
+                            examples: [
+                                {
+                                    total: 10,
+                                    page: 0
+                                },
+                                {
+                                    total: 10,
+                                    page: 0,
+                                    sort: {
+                                        order: "ascending",
+                                        field: "email"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
             responses: {
                 "200": {
                     description: "... Description",
@@ -24,25 +75,25 @@ export default Router.update( {
                                 example: {
                                     "users": [
                                         {
-                                            "id":           "f8a34fdc-0001-4619-91de-cc6c207fbd4d",
-                                            "email":        "administrator@internal.io",
-                                            "description":  "Quam explicabo ipsa quo ratione doloribus debitis.",
-                                            "avatar":       "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1174.jpg",
-                                            "comment":      [
+                                            id:           "f8a34fdc-0001-4619-91de-cc6c207fbd4d",
+                                            email:        "administrator@internal.io",
+                                            description:  "Quam explicabo ipsa quo ratione doloribus debitis.",
+                                            avatar:       "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1174.jpg",
+                                            comment:      [
                                                 "circuit",
                                                 "exploit",
                                                 "CFA"
                                             ],
-                                            "username":     "administrator",
-                                            "rotation":     "2022-09-14T07:44:45.797Z",
-                                            "login":        {
+                                            username:     "administrator",
+                                            rotation:     "2022-09-14T07:44:45.797Z",
+                                            login:        {
                                                 "date":       "2022-07-29T04:46:00.708Z",
                                                 "expiration": "2022-07-30T04:28:28.000Z",
                                                 "token":      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkFwcGxpY2F0aW9uL0pXVCJ9.eyJpZCI6IjYyYzM3NDdhNzNiNGYxOWE2YWNkNmI0MiIsInVpZCI6ImViMDM4MDQyLTE5MzYtNGRmZS05NTUzLWIwNTYzY2VhOTc2ZSIsImlhdCI6MTY1OTA2ODkwOCwiZXhwIjoxNjU5MTU1MzA4LCJpc3MiOiJJbnRlcm5hbCIsInN1YiI6ImFkbWluaXN0cmF0b3IifQ.h01egFPkLDOOiVeIWCoObTCVcoTuaLJxq2Q2tAeSeWo",
                                                 "origin":     "127.0.0.1"
                                             },
-                                            "role":         4,
-                                            "entitlements": [
+                                            role:         4,
+                                            entitlements: [
                                                 "Methodologies",
                                                 "Deliverables",
                                                 "Applications",
@@ -50,10 +101,10 @@ export default Router.update( {
                                                 "Aggregate",
                                                 "Expedite"
                                             ],
-                                            "version":      "8.6.2",
-                                            "creation":     "2021-08-31T19:46:34.855Z",
-                                            "modification": "2022-06-17T23:33:42.215Z",
-                                            "name":         "Jacob Sanders"
+                                            version:      "8.6.2",
+                                            creation:     "2021-08-31T19:46:34.855Z",
+                                            modification: "2022-06-17T23:33:42.215Z",
+                                            name:         "Jacob Sanders"
                                         }
                                     ]
                                 }

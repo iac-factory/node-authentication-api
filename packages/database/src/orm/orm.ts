@@ -14,7 +14,7 @@ export const Postgres = new DataSource({
     synchronize: true,
     logging: (process.env["NODE_ENV"] !== "testing") ? true : false,
     uuidExtension: "uuid-ossp",
-    dropSchema: true,
+    dropSchema: false,
     migrationsRun: true,
     entities: [
         __dirname + Path.sep + "entity" + Path.sep + "**" + Path.sep + "*.js"

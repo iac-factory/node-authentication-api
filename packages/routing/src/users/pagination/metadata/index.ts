@@ -7,9 +7,9 @@ import type { Request } from "@iac-factory/api-authentication-services";
 import type { Response } from "@iac-factory/api-authentication-services";
 
 Router.post( Endpoint.route, async ( request, response, callback ) => {
-    const authorization = await Authorize(request, response, "ADMINISTRATOR");
+    const authorization = await Authorize(request, response, "administrator");
 
-    async function Data (request: Request, response: Response) {
+    async function Data () {
         const { Users } = await import("@iac-factory/api-authentication-services");
 
         const payload: { total: number, page: number } = request.body;
@@ -28,7 +28,7 @@ Router.post( Endpoint.route, async ( request, response, callback ) => {
         }
     }
 
-    (authorization) && await Data(request, response);
+    (authorization) && await Data();
 } );
 
 const Information = Default.Response();

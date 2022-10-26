@@ -1,22 +1,16 @@
-import { Default, JWT } from "@iac-factory/api-authentication-services";
-
 import { Endpoint, Router } from "./definition";
+
+import { Default, JWT } from "@iac-factory/api-authentication-services";
 
 Router.post( Endpoint.route, async ( request, response, next ) => {
     const { authorization } = request.headers;
 
-    const bearer = ( authorization )
-        ? authorization.toLowerCase().includes( "bearer" )
-        : false;
-
-    const basic = ( authorization )
-        ? authorization.toLowerCase().includes( "basic" )
-        : false;
+    const referrer = request.get("referrer");
 
     const { username } = request.body ?? { username: null };
     const { password } = request.body ?? { password: null };
 
-    const error = ( !username || !password );
+    const error = ( !(username) || !(password) );
 
     const server = request.protocol + "://" + request.hostname;
 
@@ -35,6 +29,7 @@ Router.post( Endpoint.route, async ( request, response, next ) => {
     const parameters = [
         request.get( "origin" ) ?? server,
         request.ip,
+        referrer,
         username,
         password
     ] as const;

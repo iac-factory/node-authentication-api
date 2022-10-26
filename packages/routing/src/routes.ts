@@ -43,6 +43,10 @@ export default void ( async () => {
             // Logger.debug(route.default.registry);
             Router.use( route.default );
         } ),
+        import("./forms").then( ( route ) => {
+            // Logger.debug(route.default.registry);
+            Router.use( route.default );
+        } ),
         import("./authorization").then( ( route ) => {
             // Logger.debug(route.default.registry);
             Router.use( route.default );

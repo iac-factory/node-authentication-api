@@ -1,22 +1,28 @@
 import Router, { X, Endpoint } from "./definition";
 import { Default } from "@iac-factory/api-authentication-services";
+import { Authorize } from "@iac-factory/api-authentication-middleware";
 
 Router.post( Endpoint.route, async ( request, response ) => {
-    const { Users } = await import("@iac-factory/api-authentication-services");
+    const authorization = await Authorize(request, response, "administrator");
 
-    const payload = request.body;
+    async function Data () {
+        const { Users } = await import("@iac-factory/api-authentication-services");
 
-    if ( !( payload ) ) throw new Error( "Payload Input including \"limit\" ?? \"skip\" Required" );
+        const payload = request.body;
 
-    if ( !( "total" in payload ) ) throw new Error( "Payload Argument (`total`) Not Found" );
-    if ( !( "page" in payload ) ) throw new Error( "Payload Argument (`page`) Not Found" );
+        if ( !( payload ) ) throw new Error( "Payload Input including \"limit\" ?? \"skip\" Required" );
 
-    response.status( X[ "X-Default-Response" ] );
+        if ( !( "total" in payload ) ) throw new Error( "Payload Argument (`total`) Not Found" );
+        if ( !( "page" in payload ) ) throw new Error( "Payload Argument (`page`) Not Found" );
 
-    const documents = await Users.Pagination( payload.total, payload.page );
+        response.status( X[ "X-Default-Response" ] );
 
-    response.send( { users: Sanitize( documents ) } );
+        const documents = await Users.Pagination( payload.total, payload.page, payload.sort );
 
+        response.send( { users: Sanitize( documents ) } );
+    }
+
+    (authorization) && await Data();
 } );
 
 const Information = Default.Response();

@@ -40,6 +40,7 @@ const Compare = async (password: string, hash: string): Promise<[ boolean, strin
  *
  * @param {string} server
  * @param {string} ip
+ * @param {string | undefined} referrer
  * @param {string} username
  * @param {string} password
  *
@@ -47,12 +48,12 @@ const Compare = async (password: string, hash: string): Promise<[ boolean, strin
  *
  * @constructor
  */
-export const JWT = async (server: string, ip: string, username: string, password: string): Promise<string | null> => {
+export const JWT = async (server: string, ip: string, referrer: string | undefined, username: string, password: string): Promise<string | null> => {
     const context = await Context.Connection();
     const database = context.db("Authentication");
     const users = database.collection("User");
 
-    Log.debug("JWT-Generator", {server, ip, username, password});
+    Log.debug("JWT-Generator", {server, ip, referrer, username, password});
 
     const record = await users.findOne({ username: username.toLowerCase() });
 
@@ -65,8 +66,8 @@ export const JWT = async (server: string, ip: string, username: string, password
 
     const { _id: id } = record;
     const fields: SignOptions = {
-        subject: username.toLowerCase(),
-        issuer: "Internal",
+        subject: username,
+        issuer: referrer,
         expiresIn: "1d",
         algorithm: "HS256",
         encoding: "utf-8",
@@ -77,10 +78,12 @@ export const JWT = async (server: string, ip: string, username: string, password
         }
     };
 
-    return new Promise((resolve) => {
+    (referrer) || delete fields["issuer"];
+
+    return new Promise<string>((resolve) => {
         Token.sign({
             id,
-            uid: UUID()
+            scopes: []
         }, process.env["SECRET"]!, fields, async (exception, token) => {
             if (exception) throw exception;
             if (!(token)) throw new TypeError("Token Cannot be Undefined");

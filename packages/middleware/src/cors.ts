@@ -211,6 +211,7 @@ export const Options = {
     origin:               "*",
     credentials:          false,
     optionsSuccessStatus: 200,
+    methods: ["DELETE", "GET", "HEAD", "POST", "PUT", "OPTIONS"],
     preflightContinue:    true
 };
 

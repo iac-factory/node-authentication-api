@@ -95,16 +95,28 @@ export module Users {
      *     db.students.find().skip(5).limit(5)
      *
      * @constructor
-     * @param limit
-     * @param skip
+     * @param total
+     * @param page
+     * @param sort
      */
-    export const Pagination = async ( total: number, page: number ): Promise<WithId<Document>[]> => {
+    export const Pagination = async ( total: number, page: number, sort?: { order: "ascending" | "descending", field: string } ): Promise<WithId<Document>[]> => {
         const normalize = ( page - 1 );
         const client = await Initialize();
 
         const { collection } = client;
 
-        return collection.find().skip( ( normalize <= 0 ) ? 0 * total : normalize * total ).limit( total ).toArray();
+        if (sort) {
+            const { order } = sort;
+            const { field } = sort;
+
+            const filter: import("mongodb").Sort = {
+                [field]: (order === "descending") ? -1 : (order === "ascending") ? 1 : 0
+            } as import("mongodb").Sort
+
+            return await (collection.find().skip( ( normalize <= 0 ) ? 0 * total : normalize * total ).limit( total ).sort(filter).toArray());
+        } else {
+            return await collection.find().skip( ( normalize <= 0 ) ? 0 * total : normalize * total ).limit( total ).toArray();
+        }
     };
 
     export const Page = async ( total: number, page: number ) => {

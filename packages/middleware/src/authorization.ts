@@ -25,17 +25,18 @@ export async function Authorize(request: Request, response: Response, role: stri
         }
     });
 
-    const authorized = (token: string, username: string) => {
+    const Authorization = (token: string, username: string) => {
         response.locals["JWT-Authorization-Token"] = token;
 
-        const partials = Token.decode(token, {
-            complete: true,
-            json: true
+        const partials = Token.verify(token, process.env["SECRET"]!, {
+            complete: true
         });
 
         response.locals["JWT-Partials"] = partials;
 
         response.locals["JWT-User"] = username;
+
+        Debugger.debug("JWT-Partials", partials);
 
         if (partials) {
             const { payload: { sub: permissions }} = partials;
@@ -43,12 +44,12 @@ export async function Authorize(request: Request, response: Response, role: stri
             if (permissions && typeof permissions === "string" && (permissions === role || permissions.toLowerCase() === role || permissions.toUpperCase() === role)) {
                 response.set("Content-Type", "Application/JSON");
             } else {
-                unauthorized();
+                Deauthorization();
             }
         }
     };
 
-    const unauthorized = () => {
+    const Deauthorization = () => {
         response.locals["JWT-Authorization-Token"] = null;
 
         response.status(401);
@@ -70,22 +71,22 @@ export async function Authorize(request: Request, response: Response, role: stri
         const validation = await Validation(evaluation["authorization"], origin);
 
         if (validation && "username" in validation) {
-            Debugger.debug("Middleware", { username: validation.username });
+            Debugger.debug("Validation", { username: validation.username });
 
-            authorized(evaluation["authorization"], validation.username);
+            Authorization(evaluation["authorization"], validation.username);
 
             return true;
         } else {
             error();
 
-            unauthorized();
+            Deauthorization();
 
             return false;
         }
     } else {
         error();
 
-        unauthorized();
+        Deauthorization();
 
         return false;
     }

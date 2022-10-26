@@ -6,12 +6,6 @@ import { Context } from "@iac-factory/api-authentication-database";
 
 const Log = new Logger( "Authorization" );
 
-function Valid( evaluations: Array<boolean> ) {
-    return evaluations.every( ( element: boolean ) => {
-        return element === evaluations[ 0 ];
-    } );
-}
-
 /***
  * JWT Verification
  * ---
@@ -33,17 +27,18 @@ export const Validation = async function ( jwt: string, origin: string ) {
      * also while grabbing the User's database record.
      *
      * */
-    const target = Token.decode( jwt, {
-        complete: true, json: true
-    } ) as ( Jwt & { payload: { id: string, uid: string, exp: number, iat: number, sub: string } } );
+    const target = Token.verify( jwt, process.env["SECRET"]! ) as Jwt & { id?: string, scopes?: string[], iss?: string, iat?: number, sub?: string, exp?: number };
 
-    if ( !( target?.payload ) || !( target.payload.sub ) || !( target.payload.uid ) || !( target.payload.iat ) ) return false;
+    Log.debug( "JWT-Partials", { target } );
+
+    if ( !( target.sub ) || !( target.iat ) || !(target.exp) ) return false;
 
     const time = new Date( Date.now() );
 
-    const user = target.payload.sub;
+    const username = target.sub;
+    const issuer = target.iss;
 
-    const expiration = new Date( target.payload.exp * 1e3 );
+    const expiration = new Date( target.exp * 1e3 );
 
     const validation = { origin: false, username: false, expiration: false };
 
@@ -52,19 +47,13 @@ export const Validation = async function ( jwt: string, origin: string ) {
     const database = context.db( "Authentication" );
     const users = database.collection( "User" );
 
-    const record = await users.findOne( { username: target.payload.sub } );
+    const record = await users.findOne( { username } );
 
     if ( !( record ) ) return false;
 
-    validation.username = record?.username === user;
+    validation.username = record?.username === username;
     validation.origin = record?.login?.origin === origin;
     validation.expiration = time < expiration;
-
-    const valid = Valid( Object.values( validation ) );
-
-    if ( !( valid ) ) {
-        return false;
-    }
 
     const session = {
         date:       time,
@@ -79,12 +68,16 @@ export const Validation = async function ( jwt: string, origin: string ) {
     );
 
     try {
+        Log.debug( "Issuer", { issuer } );
+
         const proceed = !!( Token.verify( jwt, process.env[ "SECRET" ]!, {
-            complete: true, issuer: process.env[ "ISSUER" ]!, subject: user
+            complete: true, issuer, subject: username
         } ) );
 
         return ( proceed ) ? { username: record?.username } : false;
     } catch ( exception ) {
+        Log.warning( "JWT-Failure", { exception } );
+
         return false
     }
 };

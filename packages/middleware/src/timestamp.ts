@@ -36,7 +36,7 @@ export const Timestamp = (server: Application) => {
             const delta = (new Date().getTime() - initial) / 1000;
 
             (function Timestamp() {
-                void Debugger.debug(request.url, "HTTP Response Duration" + ":" + " " + delta + " " + "Second(s)");
+                void Debugger.debug("Metadata", { Duration: delta + " " + "Second(s)", URL: request.url });
             })();
         });
 

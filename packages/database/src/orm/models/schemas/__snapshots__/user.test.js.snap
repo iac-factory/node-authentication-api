@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Snapshot Structure State User Generator 1`] = `
+"{
+    "id": "string",
+    "email": "string",
+    "description": "string",
+    "firstname": "string",
+    "lastname": "string",
+    "avatar": "string",
+    "note": "string",
+    "username": "string",
+    "password": "string",
+    "role": "number",
+    "verification": "boolean",
+    "creation": "object",
+    "modification": "object",
+    "consent": "boolean",
+    "age": "string"
+}"
+`;

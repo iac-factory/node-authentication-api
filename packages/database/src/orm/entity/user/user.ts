@@ -4,10 +4,8 @@ import { Column } from "typeorm";
 import { BaseEntity } from "typeorm";
 import { BeforeInsert as Pre } from "typeorm";
 
-import { User as Model } from "../../..";
-
-import { Hash } from ".";
-import { Dates } from ".";
+import { Hash } from "./hash";
+import { Dates } from "./dates";
 
 enum Age {
     "Age-0" = "18 - 22",
@@ -20,7 +18,7 @@ enum Age {
 }
 
 @Entity()
-export class User extends BaseEntity implements Model.Schema {
+export class User extends BaseEntity {
     static get Age () {
         return Age;
     }
@@ -137,6 +135,7 @@ export class User extends BaseEntity implements Model.Schema {
         type: "enum",
         unique: false,
         enum: Age,
+        enumName: "User-Age-Enumeration",
         nullable: false
     }) age!: Age;
 

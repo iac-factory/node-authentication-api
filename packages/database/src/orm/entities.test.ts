@@ -13,7 +13,7 @@ describe("Entities Establishment(s)", function() {
         await Connection.close();
     });
 
-    beforeEach(async () => {
+    afterEach(async () => {
         await Connection.clear();
     });
 
@@ -21,7 +21,7 @@ describe("Entities Establishment(s)", function() {
         void null;
     });
 
-    test("Functional User Class", async function Class () {
+    test("User Functional Class", async function Class () {
         const { User } = await import(".");
 
         const entity = new User();
@@ -47,7 +47,7 @@ describe("Entities Establishment(s)", function() {
         expect(entity).toBeTruthy();
     });
 
-    test("ORM User Record", async function Record () {
+    test("User ORM Record", async function Record () {
         const { User } = await import(".");
 
         const { Postgres } = await import(".");
@@ -83,7 +83,7 @@ describe("Entities Establishment(s)", function() {
         expect(entities).toBeTruthy();
     });
 
-    test("ORM User Record (Default Dates)", async function Dates () {
+    test("User ORM Record (Default Dates)", async function Dates () {
         const { User } = await import(".");
 
         const { Postgres } = await import(".");
@@ -101,8 +101,6 @@ describe("Entities Establishment(s)", function() {
         entity.note = "User Generated via Automated Unit Test";
         entity.password = "Kn0wledge!";
         entity.role = 1 << 30;
-        /*** entity.creation = new Date(); */
-        /*** entity.modification = new Date(); */
         entity.consent = true;
         entity.verification = true;
 
@@ -165,5 +163,165 @@ describe("Entities Establishment(s)", function() {
 
         expect(password === user.password).toBe(false);
         expect(password === entity.password).toBe(false);
+    });
+
+    test("Form Functional Class", async function Class () {
+        const { Form } = await import(".");
+
+        const entity = new Form();
+
+        entity.title = "Test Form Title";
+        entity.fluid = true;
+        entity.identifier = "test-form";
+
+        Debugger.debug("Form", { entity });
+
+        expect(entity).toBeTruthy();
+    });
+
+    test("Form ORM Record", async function Record () {
+        const { Form } = await import(".");
+
+        const { Postgres } = await import(".");
+
+        await Postgres.initialize();
+
+        const entity = new Form();
+
+        entity.title = "Test Form Title";
+        entity.fluid = true;
+        entity.identifier = "test-form";
+
+        const repository = Postgres.getRepository(Form);
+
+        await repository.save([entity]);
+
+        const entities = await repository.find();
+
+        Debugger.debug("Form", { entities });
+
+        expect(entities).toBeTruthy();
+    });
+
+    test("Form ORM Record with Field(s)", async function Record () {
+        const { Form } = await import(".");
+
+        const { Postgres } = await import(".");
+
+        await Postgres.initialize();
+
+        const entity = new Form();
+
+        entity.identifier = "test-form";
+        entity.fluid = true;
+        entity.title = "Test Form Title";
+
+        const repository = Postgres.getRepository(Form);
+
+        await repository.save([entity]);
+
+        const record = await repository.findOne({
+            where: {
+                identifier: entity.identifier
+            }
+        });
+
+        Debugger.debug("Form (Pre-Injection)", { record });
+
+        expect(record).toBeTruthy();
+
+        if (!(record)) {
+            throw new Error("Fatal Error Locating Form");
+        }
+
+        const { id } = record;
+
+        expect(id).toBeTruthy();
+
+        const { Field } = await import(".");
+
+        const field = new Field();
+
+        const fields = Postgres.getRepository(Field);
+
+        field.identifier = "test-field";
+        field.type = "text";
+        field.autofill = "off";
+        field.row = 0;
+        field.form = record;
+
+        await fields.save([field]);
+
+        Debugger.debug("Field", { field });
+
+        expect(field).toBeTruthy();
+
+        const update = await repository.findOne({
+            where: {
+                identifier: entity.identifier
+            }
+        });
+
+        if (!(update)) {
+            throw new Error("Fatal Error Locating Updated Form Record");
+        }
+
+        const { fields: children } = update;
+
+        Debugger.debug("Form (Fields)", { children });
+
+        expect(children).toBeTruthy();
+    });
+
+    test("Form ORM Record with Defaults + Field(s)", async function Record () {
+        const { Form } = await import(".");
+
+        const { Postgres } = await import(".");
+
+        await Postgres.initialize();
+
+        const entity = new Form();
+
+        entity.identifier = "test-form";
+        /// entity.fluid = true;
+        entity.title = "Test Form Title";
+
+        const repository = Postgres.getRepository(Form);
+
+        await repository.save([entity]);
+
+        const record = await repository.findOne({
+            where: {
+                identifier: entity.identifier
+            }
+        });
+
+        Debugger.debug("Form (Pre-Injection)", { record });
+
+        expect(record).toBeTruthy();
+
+        if (!(record)) {
+            throw new Error("Fatal Error Locating Form");
+        }
+
+        const { id, fluid } = record;
+
+        expect(id).toBeTruthy();
+        expect(fluid).toBeTruthy();
+    });
+
+    test("Field Functional Class", async function Class () {
+        const { Field } = await import(".");
+
+        const entity = new Field();
+
+        entity.identifier = "test-field";
+        entity.type = "text";
+        entity.autofill = "off";
+        entity.row = 0;
+
+        Debugger.debug("Field", { entity });
+
+        expect(entity).toBeTruthy();
     });
 });
