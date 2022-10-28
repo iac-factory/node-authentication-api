@@ -38,5 +38,5 @@
         "diagnostics": true
     },
     "include": ["**/*.ts", "**/*.json"],
-    "exclude": ["coverage", "proxy", "**/*.d.*", "**/*.js", "**/*.map"]
+    "exclude": ["coverage", "proxy", "**/*.d.*", "**/*.js", "**/*.map", "./Users.json"]
 }

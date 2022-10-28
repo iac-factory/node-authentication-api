@@ -24,8 +24,9 @@
         "@iac-factory/api-authentication-schema": "file:./packages/schema",
         "@iac-factory/api-authentication-services": "file:./packages/service",
         "@iac-factory/api-authentication-tls": "file:./packages/tls",
-        "@iac-factory/api-authentication-utilities": "file:./packages/utilities",
         "@iac-factory/api-authentication-unit-testing": "file:./packages/unit-testing",
+        "@iac-factory/api-authentication-utilities": "file:./packages/utilities",
+        "cookie-parser": "^1.4.6",
         "dotenv": "^16.0.3",
         "dotenv-expand": "^9.0.0"
     },

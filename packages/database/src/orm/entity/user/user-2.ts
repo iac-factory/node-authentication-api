@@ -1,3 +1,50 @@
+//{
+//    "_id": {
+//    "$oid": "62c3747a73b4f19a6acd6b42"
+//},
+//    "id": "f8a34fdc-0001-4619-91de-cc6c207fbd4d",
+//    "email": "administrator@internal.io",
+//    "description": "Quam explicabo ipsa quo ratione doloribus debitis.",
+//    "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1174.jpg",
+//    "comment": [
+//    "circuit",
+//    "exploit",
+//    "CFA"
+//],
+//    "username": "administrator",
+//    "password": "$2a$05$RTKeUNQifHYd1B6yLsOluemu.3xfbe3O5y/vZplGQRh2tebzbX1Ye",
+//    "rotation": {
+//    "$date": "2022-09-14T07:44:45.797Z"
+//},
+//    "login": {
+//    "date": {
+//        "$date": "2022-10-26T01:57:38.091Z"
+//    },
+//    "expiration": {
+//        "$date": "2022-10-26T23:19:04.000Z"
+//    },
+//    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6IkFwcGxpY2F0aW9uL0pXVCJ9.eyJpZCI6IjYyYzM3NDdhNzNiNGYxOWE2YWNkNmI0MiIsInNjb3BlcyI6W10sImlhdCI6MTY2NjczOTk0NCwiZXhwIjoxNjY2ODI2MzQ0LCJpc3MiOiJodHRwOi8vbG9jYWxob3N0Ojg0NDMvIiwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.qAbi84nJa4FqzuTTPAOsdm8UAAhXXCOGqdSnCOZa5WQ",
+//        "origin": "127.0.0.1"
+//},
+//    "role": 4,
+//    "entitlements": [
+//    "Methodologies",
+//    "Deliverables",
+//    "Applications",
+//    "Synergies",
+//    "Aggregate",
+//    "Expedite"
+//],
+//    "version": "8.6.2",
+//    "creation": {
+//    "$date": "2021-08-31T19:46:34.855Z"
+//},
+//    "modification": {
+//    "$date": "2022-06-17T23:33:42.215Z"
+//},
+//    "name": "Jacob Sanders"
+//}
+
 import { Entity } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
 import { Column } from "typeorm";

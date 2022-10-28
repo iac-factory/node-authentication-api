@@ -15,6 +15,8 @@ const Overwrites = [
 ];
 
 export const Headers = ( server: Application, headers = Overwrites ) => {
+    Debugger.debug("Initialization", "Establishing Default HTTP Header(s) ...");
+
     const fn = ( _: Request, response: Response, callback: NextFunction ) => {
         headers.forEach( ( Element ) => {
             response.set( Element.Key, Element.Value );

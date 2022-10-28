@@ -1,4 +1,4 @@
-import { Logger } from "@iac-factory/api-authentication-utilities";
+import { Debugger } from "..";
 
 import type { Request, Response } from "express";
 
@@ -7,8 +7,6 @@ import type { IncomingHttpHeaders } from "http";
 import { Validation } from "@iac-factory/api-authentication-services";
 
 import Token from "jsonwebtoken";
-
-const Debugger = new Logger("Middleware");
 
 /***
  *

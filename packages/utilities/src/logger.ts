@@ -1,6 +1,7 @@
 import ANSI from "ansi-colors";
 
 import FS from "fs";
+import Utility from "util";
 
 type Message = string[] | (string | number | undefined)[];
 export module Namespace {
@@ -218,7 +219,7 @@ export class Logger {
             (title) ? "[" + Color.green(Arguments.shift() as string) + "]" : null,
             (callable) ? "[" + Color.yellow(callable) + "]" : null,
             "[" + Color.dim(verbosity) + "]",
-            ... Arguments,
+            Utility.inspect( { ... Arguments }, { colors: true, depth: Infinity, compact: true }),
             (module) ? "\n" + " ".repeat(2) + Color.bold(Color.magentaBright("↳")) + " " + "file://" + module : null
         ].filter(($) => $);
     }

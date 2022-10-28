@@ -18,7 +18,7 @@ Router.post( Endpoint.route, async ( request, response ) => {
 
     const unauthorized = ( response: Response<any, Record<string, any>, number> | void ) => response?.status( 401 ).set( "WWW-Authenticate", "Token-Exchange" ).send( "Invalid Username & Password Combination" );
 
-    const token = ( !error ) ? await JWT( request.get( "origin" ) ?? server, request.ip, username, password )
+    const token = ( !error ) ? await JWT( server, request.ip, request.get( "origin" ) ?? server, username, password )
         : unauthorized( response );
 
     ( token && !error ) && response.status( 200 ).set( "Content-Type", "Application/JWT" ).send( token );

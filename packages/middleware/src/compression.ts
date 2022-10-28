@@ -17,6 +17,8 @@ import type { Request, Response, NextFunction } from "express";
  */
 
 export const Compress = ( server: Application ) => {
+    Debugger.debug("Initialization", "Adding HTTP Compression ...");
+
     server.use( Compression() );
 
     return server;

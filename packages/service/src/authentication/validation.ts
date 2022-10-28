@@ -15,8 +15,8 @@ const Log = new Logger( "Authorization" );
  * @param jwt
  * @param origin
  */
-export const Validation = async function ( jwt: string, origin: string ) {
-    Log.debug( "JWT", { jwt, origin } );
+export const Validation = async function ( jwt: string, origin: string, data?: any ) {
+    Log.debug( "JWT", { jwt, origin, data } );
 
     /***
      * Unverified, Decoded JWT

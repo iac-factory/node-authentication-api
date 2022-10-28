@@ -1,15 +1,9 @@
-import Router, { X, Endpoint } from "./definition";
+import Router, { X, Endpoint, Body } from "./definition";
 
 import { Default } from "@iac-factory/api-authentication-services";
 
-const Information = Default.Response();
-
-// Router.all( Endpoint.route, async ( request, response ) => {
-//     Information.evaluate( Endpoint.route, response );
-// } );
-
 Router.post(Endpoint.route, async (request, response) => {
-    const body: Post = request.body;
+    const body = request.body as Body.Post.Input;
 
     const {
         Postgres,
@@ -45,23 +39,27 @@ Router.post(Endpoint.route, async (request, response) => {
         });
     } else {
         form.title = body.form.title;
-        form.fluid = body.form.fluid;
+        form.fluid = body.form.fluid ?? true;
         form.identifier = body.form.identifier;
 
         const elements = body.fields.map((entity) => {
-            const field = new Field();
+            if (entity) {
+                const field = new Field();
 
-            field.identifier = entity.identifier;
-            field.type = entity.type;
-            field.autofill = entity.autofill;
-            field.row = entity.row;
-            field.label = entity.label;
-            field.placeholder = entity.placeholder;
+                field.identifier = entity.identifier;
+                field.type = entity.type;
+                field.autofill = entity.autofill;
+                field.row = entity.row;
+                field.label = entity.label;
+                field.placeholder = entity.placeholder;
 
-            field.form = form;
+                field.form = form;
 
-            return field;
-        });
+                return field;
+            }
+
+            return null;
+        }).filter(($) => ($ !== null)) as Field[];
 
         await forms.save([ form ]);
         await fields.save(elements);
@@ -118,7 +116,7 @@ Router.get(Endpoint.route, async (request, response) => {
 });
 
 Router.put(Endpoint.route, async (request, response) => {
-    const body: Put = request.body;
+    const body: Body.Put.Input = request.body;
 
     const { form: { identifier } } = body;
 
@@ -165,7 +163,7 @@ Router.put(Endpoint.route, async (request, response) => {
 });
 
 Router.delete(Endpoint.route, async (request, response) => {
-    const body: Delete = request.body;
+    const body: Body.Delete.Input = request.body;
 
     const {
         Postgres,
@@ -210,29 +208,15 @@ Router.delete(Endpoint.route, async (request, response) => {
     }
 });
 
+const Information = Default.Response();
+
+// Router.all( Endpoint.route, async ( request, response ) => {
+//     Information.evaluate( Endpoint.route, response );
+// } );
+
 /*** Types */
 
 import type { Form } from "@iac-factory/api-authentication-database";
 import type { Field } from "@iac-factory/api-authentication-database";
-
-export interface Delete {
-    form: Form;
-}
-
-export interface Post {
-    form: Form,
-    fields: Field[]
-}
-
-export interface Put {
-    form: Form;
-
-    title?: string,
-    fluid?: boolean
-}
-
-export interface Get {
-    form: Form;
-}
 
 export default Router;

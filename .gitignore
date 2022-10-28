@@ -94,3 +94,5 @@ Users.*.json
 **/Users.*.json
 
 .cache
+
+Users.json

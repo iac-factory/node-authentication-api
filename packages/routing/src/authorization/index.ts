@@ -1,7 +1,6 @@
 import { Default, Validation } from "@iac-factory/api-authentication-services";
 
-// import { Context } from "@iac-factory/api-authentication-database";
-import { Endpoint, Router } from "./definition";
+import Router, { Endpoint, Schema } from "./definition";
 
 Router.post( Endpoint.route, async ( request, response ) => {
     const jwt = request.body?.jwt ?? null;
@@ -16,5 +15,8 @@ const Information = Default.Response();
 Router.all( Endpoint.route, async ( request, response ) => {
     Information.evaluate( Endpoint.route, response );
 } );
+
+export { Router };
+export { Schema };
 
 export default Router;

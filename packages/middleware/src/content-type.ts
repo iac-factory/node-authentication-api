@@ -14,6 +14,8 @@ import type { Request, Response, NextFunction } from "express";
  */
 
 export const Set = ( server: Application ) => {
+    Debugger.debug("Initialization", "Setting Default Content-Type ...");
+
     server.use( async ( request, response, callback ) => {
         response.set( "Content-Type", "Application/JSON" );
 

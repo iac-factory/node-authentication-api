@@ -14,6 +14,8 @@ import type { Request, Response, NextFunction } from "express";
  */
 
 export const Agent = ( server: Application ) => {
+    Debugger.debug("Initialization", "Adding User-Agent Middleware ...");
+
     /***
      * User-Agent Middleware Function
      *
@@ -26,6 +28,10 @@ export const Agent = ( server: Application ) => {
      */
     const UA = ( request: Request, response: Response, callback: NextFunction ) => {
         Reflect.set( response.locals, "user-agent", request.get( "User-Agent" ) );
+
+        (function Agent() {
+            void Debugger.debug("Metadata", { "User-Agent": response.locals["user-agent"], URL: request.url });
+        })();
 
         callback();
     };

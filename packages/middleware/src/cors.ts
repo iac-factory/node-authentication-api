@@ -227,7 +227,7 @@ export const Options = {
  */
 
 export const CORS = ( server: Application ) => {
-    // Logger.debug("Setting CORS Policy ...");
+    Debugger.debug("Initialization", "Adding CORs Header(s) ...");
 
     server.use( ( request, response, next ) => {
         Middleware.cors( Options, request, response, next );
