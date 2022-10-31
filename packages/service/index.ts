@@ -3,8 +3,10 @@ import { Application, Controller } from "./main";
 
 export { Application };
 export { Controller };
-export type { Reflection };
-export default Application;
 
 export * from "./src";
 export * from "./main";
+
+export type { Reflection };
+
+export default Application;

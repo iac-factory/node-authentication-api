@@ -31,7 +31,7 @@ export module Socket {
             Debugger.debug( "Server", "Initializing ..." );
         } )();
 
-        Implementation.addListener( "kill", async () => {
+        ( initialize ) && Implementation.addListener( "kill", async () => {
             ( Count() >= 1 ) && ( function Connections() {
                 Debugger.debug( "Server", "Active Server Connection(s)" + ":", Application.connections ?? 0 );
             } )();
@@ -48,12 +48,21 @@ export module Socket {
             await new Promise( async ( resolve ) => Implementation.emit( "stop", resolve ) );
         } );
 
-        Implementation.addListener( "stop", async ( callback?: Callback ) => {
-            await ( async () => new Promise( ( resolve ) => Implementation.close( resolve ) ) )();
+        ( initialize ) && Implementation.addListener( "stop", async ( callback?: Callback ) => {
+            Debugger.debug( "Server", "Stopping Server ...");
 
-            void Implementation.closeAllConnections();
+            return new Promise( ( resolve, reject ) => {
+                void Implementation.closeIdleConnections();
+                void Implementation.closeAllConnections();
+                void Implementation.close();
 
-            ( callback ) && callback();
+                /*** Detach the HTTP Emitter from Node's Event-Loop; Attached Emitters Statefully Keep the Process Alive */
+                void Implementation.unref();
+
+                void Implementation.removeAllListeners();
+
+                resolve(void null);
+            } );
         } );
 
         return Implementation;
@@ -66,6 +75,6 @@ export module Socket {
     }
 }
 
-export const { Server } = Socket;
+export const Server = Socket.Server;
 
 export default Server;

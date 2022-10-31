@@ -14,7 +14,18 @@ export const Runtime = async () => {
 
     const { Initialize } = await import("@iac-factory/api-authentication-core");
 
-    (process.env["NODE_ENV"] !== "testing") && await Initialize();
+    /*** Inline Type `settings` for HTTP-Listen Event Listener */
+    const HTTP: [ number, string, number ] = [
+        parseInt(process.env["SERVER_PORT"] ?? "3000"),
+        process.env["SERVER_HOSTNAME"] ?? "0.0.0.0",
+        parseInt( process.env[ "SERVER_BACKLOG" ] ?? "512" )
+    ];
+
+    if (process.env["NODE_ENV"] !== "testing") {
+        const server = await Initialize();
+
+        server.listen(...HTTP);
+    }
 };
 
 export default Runtime;

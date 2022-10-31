@@ -1,4 +1,3 @@
-import { Router } from "./main";
+export { Debugger } from "./debugger";
 
-export { Router }
-export default Router;
+export * from "./main";

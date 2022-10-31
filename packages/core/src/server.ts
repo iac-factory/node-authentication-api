@@ -9,10 +9,11 @@ import { Server } from ".";
 
 const Debugger = new Logger( "Core" );
 
-export async function Initialize(): Promise<HTTP.Server> {
+export async function Initialize(initialize?: boolean): Promise<HTTP.Server> {
     await Middleware( Application );
 
-    Application.use( "/", Router );
+    Application.use( Router );
+
     /*** Inline Type `settings` for HTTP-Listen Event Listener */
     const HTTP: [ number, string, number ] = [
         parseInt(process.env["SERVER_PORT"] ?? "3000"),
@@ -20,16 +21,18 @@ export async function Initialize(): Promise<HTTP.Server> {
         parseInt( process.env[ "SERVER_BACKLOG" ] ?? "512" )
     ];
 
-    const Instance = ( await Server() );
-
-    return new Promise( ( resolve ) => {
-        Instance.listen( ... HTTP, function HTTP() {
-            Debugger.debug( "Server", "Now Listening via http://localhost:3000");
-            // Debugger.debug( "Server", Address.url, {
-            //     ... ( Instance.address() as Network.AddressInfo )
-            // } );
-
-            resolve( Application );
-        } );
-    } );
+    return ( await Server(initialize) );
+//
+//    return new Promise( async ( resolve ) => {
+//        const Instance = ( await Server() );
+//
+//        Instance.listen( ... HTTP, function HTTP() {
+//            Debugger.debug( "Server", "Now Listening via http://localhost:3000");
+//            // Debugger.debug( "Server", Address.url, {
+//            //     ... ( Instance.address() as Network.AddressInfo )
+//            // } );
+//
+//            resolve( Instance );
+//        } );
+//    } );
 }

@@ -1,54 +1,51 @@
-const cookieParser = require( "cookie-parser" );
-
+import Application from "@iac-factory/api-authentication-services";
 import { Logger } from "@iac-factory/api-authentication-utilities";
 
-import * as Should from "should";
+import Test from "supertest";
+import Router, { Endpoint, Operation } from ".";
 
-import Request from "supertest";
-import Application from "@iac-factory/api-authentication-services";
+const Debugger = new Logger( "Routing" );
 
-const Debugger = new Logger("Routing");
+describe( Operation, function () {
+    Application.use( Router );
 
-describe( "request.agent(app)", function () {
-//
-//
-//    app.get( "/", function ( req, res ) {
-//        res.cookie( "cookie", "hey" );
-//        res.send();
-//    } );
-//
-//    app.get( "/return", function ( req, res ) {
-//        if ( req.cookies.cookie ) res.send( req.cookies.cookie );
-//        else res.send( ":(" )
-//    } );
-//
-//    const agent = Request.agent( app );
+    const Agent = Test.agent( Application );
 
-    test("Router (Schema) Import", async function () {
+    test( "Open-API (Operation-ID) Import", async () => {
+        const { Operation } = await import(".");
+
+        Debugger.debug( "Operation-ID", { Operation } );
+
+        expect( Operation ).toBeTruthy();
+    } );
+
+    test( "Router (Endpoint) Import", async () => {
+        const { Endpoint } = await import(".");
+
+        Debugger.debug( "Router Endpoint", { Endpoint } );
+
+        expect( Endpoint ).toBeTruthy();
+    } );
+
+    test( "Router (Schema) Import", async () => {
         const { Schema } = await import(".");
 
-        Debugger.debug("Schema", { Schema });
+        Debugger.debug( "Router, Open-API Schema", { Schema } );
 
-        expect(Schema).toBeTruthy();
-    });
+        expect( Schema ).toBeTruthy();
+    } );
 
-    test("Router (Controller) Import", async function () {
-        const Controller = await import(".").then((router) => router.default );
+    test( "Router (Controller) Import", async () => {
+        const { Router } = await import(".");
 
-        Debugger.debug("Router", { Controller });
+        expect( Router ).toBeTruthy();
+    } );
 
-        expect(Controller).toBeTruthy();
-    });
-//
-//    it( "should save cookies", function ( done ) {
-//        agent
-//            .get( "/" )
-//            .expect( "set-cookie", "cookie=hey; Path=/", done );
-//    } );
-//
-//    it( "should send cookies", function ( done ) {
-//        agent
-//            .get( "/return" )
-//            .expect( "hey", done );
-//    } );
+    test( "Unauthorized Response via Credentials in Request Body", async () => {
+        await Agent.post( Endpoint.route ).send( {
+            username: "administrator",
+            password: "Kn0wledge!",
+        } ).type("Application/JSON")
+            .expect(401);
+    } );
 } );

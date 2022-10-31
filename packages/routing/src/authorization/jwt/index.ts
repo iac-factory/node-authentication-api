@@ -1,9 +1,19 @@
-import { Endpoint, Router } from "./definition";
+import { Debugger } from "@iac-factory/api-authentication-routing";
+
+import Router, { Endpoint, Schema, Operation } from "./definition";
 
 import { Default, JWT } from "@iac-factory/api-authentication-services";
 
 Router.post( Endpoint.route, async ( request, response, next ) => {
     const { authorization } = request.headers;
+
+    (function Body () {
+        Debugger.debug(Operation, request.body);
+    })();
+
+    (function Headers () {
+        Debugger.debug(Operation, request.headers);
+    })();
 
     const referrer = request.get("referrer");
 
@@ -44,5 +54,10 @@ const Information = Default.Response();
 Router.all( Endpoint.route, async ( request, response ) => {
     Information.evaluate( Endpoint.route, response );
 } );
+
+export { Router };
+export { Endpoint };
+export { Operation };
+export { Schema };
 
 export default Router;

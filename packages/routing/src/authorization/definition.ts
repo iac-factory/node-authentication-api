@@ -1,6 +1,8 @@
 import { Controller } from "@iac-factory/api-authentication-services";
 
-export const Router = Controller( "IaC.Factory.API.Authorization" );
+export const Operation = "IaC.Factory.API.Authorization";
+
+export const Router = Controller( Operation );
 /*** Endpoint must be an Indexable Object in Order for the `route` Attribute to Resolve Types */
 export const Endpoint = { route: "/authorization" } as const;
 
@@ -22,6 +24,6 @@ export const Schema = {
             }
         }
     }
-};
+} as const;
 
 export default Router.update( Schema );
